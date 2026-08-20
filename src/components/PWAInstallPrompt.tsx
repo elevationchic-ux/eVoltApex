@@ -11,6 +11,16 @@ export default function PWAInstallPrompt() {
   const [canInstall, setCanInstall] = useState(false);
 
   useEffect(() => {
+    // Check if previously dismissed - do this first
+    const dismissed = localStorage.getItem('pwa_prompt_dismissed');
+    if (dismissed) {
+      const sevenDays = 7 * 24 * 60 * 60 * 1000;
+      if (Date.now() - parseInt(dismissed) < sevenDays) {
+        // Don't show anything if dismissed within 7 days
+        return;
+      }
+    }
+
     // Check if running as PWA
     const isInStandaloneMode =
       window.matchMedia('(display-mode: standalone)').matches ||
@@ -30,8 +40,11 @@ export default function PWAInstallPrompt() {
       e.preventDefault();
       setDeferredPrompt(e);
       setCanInstall(true);
-      // Show prompt immediately when event fires
-      setShowPrompt(true);
+      // Check again before showing
+      const dismissedCheck = localStorage.getItem('pwa_prompt_dismissed');
+      if (!dismissedCheck || Date.now() - parseInt(dismissedCheck) >= 7 * 24 * 60 * 60 * 1000) {
+        setShowPrompt(true);
+      }
     };
 
     // Listen for appinstalled
@@ -47,8 +60,11 @@ export default function PWAInstallPrompt() {
     // For non-iOS devices, show prompt after 5 seconds if install prompt hasn't fired
     if (!isIOSDevice) {
       const timer = setTimeout(() => {
-        if (!canInstall && !isInStandaloneMode) {
-          setShowPrompt(true);
+        const dismissedCheck = localStorage.getItem('pwa_prompt_dismissed');
+        if (!dismissedCheck || Date.now() - parseInt(dismissedCheck) >= 7 * 24 * 60 * 60 * 1000) {
+          if (!canInstall && !isInStandaloneMode) {
+            setShowPrompt(true);
+          }
         }
       }, 5000);
 
@@ -60,8 +76,11 @@ export default function PWAInstallPrompt() {
     } else {
       // For iOS, show prompt after 5 seconds
       const timer = setTimeout(() => {
-        if (!isInStandaloneMode) {
-          setShowPrompt(true);
+        const dismissedCheck = localStorage.getItem('pwa_prompt_dismissed');
+        if (!dismissedCheck || Date.now() - parseInt(dismissedCheck) >= 7 * 24 * 60 * 60 * 1000) {
+          if (!isInStandaloneMode) {
+            setShowPrompt(true);
+          }
         }
       }, 5000);
 
@@ -93,17 +112,6 @@ export default function PWAInstallPrompt() {
     // Don't show again for 7 days
     localStorage.setItem('pwa_prompt_dismissed', Date.now().toString());
   };
-
-  // Check if previously dismissed
-  useEffect(() => {
-    const dismissed = localStorage.getItem('pwa_prompt_dismissed');
-    if (dismissed) {
-      const sevenDays = 7 * 24 * 60 * 60 * 1000;
-      if (Date.now() - parseInt(dismissed) < sevenDays) {
-        setShowPrompt(false);
-      }
-    }
-  }, []);
 
   if (!showPrompt || isInstalled) return null;
 

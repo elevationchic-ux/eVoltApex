@@ -1,11 +1,11 @@
 {
-  "name": "Electro Bikes Admin",
-  "short_name": "Admin Panel",
-  "description": "Panel d'administration pour Electro Bikes",
+  "name": "eVolt Apex Admin",
+  "short_name": "eVolt Admin",
+  "description": "Panel d'administration eVolt Apex",
   "start_url": "/admin/login",
   "display": "standalone",
-  "background_color": "#1f2937",
-  "theme_color": "#3b82f6",
+  "background_color": "#09090b",
+  "theme_color": "#c8ff00",
   "orientation": "any",
   "scope": "/admin",
   "icons": [

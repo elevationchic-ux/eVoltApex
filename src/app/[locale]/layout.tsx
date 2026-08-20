@@ -10,6 +10,7 @@ import MechanicAdvisorFloating from "@/components/MechanicAdvisorFloating";
 import VisitorTracker from "@/components/VisitorTracker";
 import ChatWidget from "@/components/ChatWidget";
 import PWAInstallPrompt from "@/components/PWAInstallPrompt";
+import { AuthProvider } from "@/context/AuthContext";
 import Script from "next/script";
 
 // SVG favicon as data URI
@@ -27,7 +28,7 @@ const geistMono = localFont({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#09090b",
+  themeColor: "#c8ff00",
   width: "device-width",
   initialScale: 1,
 };
@@ -82,7 +83,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Electro Bikes",
+    title: "eVolt Apex",
   },
   mobileWebApp: {
     capable: true,
@@ -134,12 +135,14 @@ export default function LocaleLayout({
         className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col bg-[#09090b] text-zinc-100 antialiased selection:bg-lime-400 selection:text-zinc-950`}
       >
         <VisitorTracker />
-        <Header locale={params.locale} dict={dict} />
-        <main className="flex-1">{children}</main>
-        <Footer dict={dict} locale={params.locale} />
-        <MechanicAdvisorFloating locale={params.locale} />
-        <ChatWidget dict={dict} locale={params.locale} />
-        <PWAInstallPrompt dict={dict} />
+        <AuthProvider>
+          <Header locale={params.locale} dict={dict} />
+          <main className="flex-1">{children}</main>
+          <Footer dict={dict} locale={params.locale} />
+          <MechanicAdvisorFloating locale={params.locale} />
+          <ChatWidget dict={dict} locale={params.locale} />
+          <PWAInstallPrompt dict={dict} />
+        </AuthProvider>
         <Script
           id="register-sw"
           strategy="afterInteractive"

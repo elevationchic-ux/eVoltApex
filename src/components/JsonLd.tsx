@@ -9,7 +9,7 @@ export function OrganizationJsonLd() {
     "@type": "Organization",
     name: "eVolt",
     url: "https://evolt-bikes.com",
-    logo: "https://evolt-bikes.com/logo.png",
+    logo: "https://evolt-bikes.com/images/evolt-logo.svg",
     description:
       "Plateforme de référence pour les vélos et motos électriques haut de gamme certifiés CE & Euro 5.",
     address: {

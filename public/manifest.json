@@ -1,14 +1,20 @@
 {
-  "name": "Electro Bikes - Vélos & Motos Électriques",
-  "short_name": "Electro Bikes",
+  "name": "eVolt Apex - Vélos & Motos Électriques",
+  "short_name": "eVolt Apex",
   "description": "Leader européen de la mobilité électrique à deux roues. Vélos et motos électriques haute performance.",
-  "start_url": "/",
+  "start_url": "/fr",
   "display": "standalone",
   "background_color": "#09090b",
-  "theme_color": "#a3e635",
+  "theme_color": "#c8ff00",
   "orientation": "portrait-primary",
   "scope": "/",
   "icons": [
+    {
+      "src": "/images/evolt-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
     {
       "src": "/icons/icon-192x192.svg",
       "sizes": "192x192",
@@ -41,21 +47,14 @@
       "short_name": "Catalogue",
       "description": "Voir tous nos vélos et motos électriques",
       "url": "/fr/catalogue",
-      "icons": [{ "src": "/icons/icon-192x192.svg", "sizes": "192x192" }]
+      "icons": [{ "src": "/images/evolt-logo.svg", "sizes": "192x192" }]
     },
     {
       "name": "Panier",
       "short_name": "Panier",
       "description": "Accéder à votre panier",
       "url": "/fr/cart",
-      "icons": [{ "src": "/icons/icon-192x192.svg", "sizes": "192x192" }]
-    },
-    {
-      "name": "Admin",
-      "short_name": "Admin",
-      "description": "Panel d'administration",
-      "url": "/admin/login",
-      "icons": [{ "src": "/icons/icon-192x192.svg", "sizes": "192x192" }]
+      "icons": [{ "src": "/images/evolt-logo.svg", "sizes": "192x192" }]
     }
   ]
 }

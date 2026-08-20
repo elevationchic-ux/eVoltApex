@@ -21,8 +21,11 @@ import {
   ShieldCheck,
   Calendar,
   ChevronRight,
+  User,
+  LogOut,
 } from "lucide-react";
 import { MotoIcon, VeloIcon } from "./VehicleIcons";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Header({
   locale,
@@ -38,6 +41,7 @@ export default function Header({
   const [testRideOpen, setTestRideOpen] = useState(false);
 
   const { productIds } = useCompareStore();
+  const { user, signOut } = useAuth();
   const isFr = locale === "fr";
 
   return (
@@ -169,6 +173,41 @@ export default function Header({
                   {productIds.length}
                 </span>
               </button>
+            )}
+
+            {/* Auth Button */}
+            {user ? (
+              <div className="relative group">
+                <button
+                  className="flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900 px-3 py-2 text-xs font-semibold text-zinc-300 hover:border-lime-400/50 hover:text-white transition"
+                >
+                  <div className="w-5 h-5 rounded-full bg-lime-400/20 border border-lime-400/40 flex items-center justify-center text-lime-400 text-[10px] font-bold">
+                    {user.firstName[0]}{user.lastName[0]}
+                  </div>
+                  <span className="hidden sm:inline">{user.firstName}</span>
+                </button>
+                <div className="absolute right-0 top-full mt-2 w-48 bg-zinc-900 border border-zinc-800 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                  <div className="p-3 border-b border-zinc-800">
+                    <p className="text-xs font-semibold text-white">{user.firstName} {user.lastName}</p>
+                    <p className="text-[10px] text-zinc-500 truncate">{user.email}</p>
+                  </div>
+                  <button
+                    onClick={() => { signOut(); }}
+                    className="w-full flex items-center gap-2 px-3 py-2.5 text-xs text-zinc-400 hover:text-red-400 hover:bg-zinc-800/50 transition"
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                    {isFr ? "Déconnexion" : "Sign out"}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <Link
+                href={`/${locale}/auth/signin`}
+                className="hidden sm:flex items-center gap-1.5 rounded-full border border-zinc-800 bg-zinc-900 px-3.5 py-2 text-xs font-semibold text-zinc-400 hover:border-lime-400/50 hover:text-white transition"
+              >
+                <User className="h-3.5 w-3.5" />
+                <span>{isFr ? "Connexion" : "Sign in"}</span>
+              </Link>
             )}
 
             {/* Cart Button */}

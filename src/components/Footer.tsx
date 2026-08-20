@@ -210,6 +210,20 @@ export default function Footer({ dict, locale }: { dict: Dictionary; locale: Loc
                 >
                   {f.linkDelivery}
                 </Link>
+                <div className="pt-2 border-t border-zinc-800 mt-1 flex flex-col gap-1.5">
+                  <Link
+                    href={`/${locale}/auth/signin`}
+                    className="text-zinc-400 hover:text-lime-400 transition flex items-center gap-1.5"
+                  >
+                    {locale === "fr" ? "Mon compte" : "My account"}
+                  </Link>
+                  <Link
+                    href={`/${locale}/auth/signup`}
+                    className="text-zinc-400 hover:text-lime-400 transition flex items-center gap-1.5"
+                  >
+                    {locale === "fr" ? "Créer un compte" : "Create account"}
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

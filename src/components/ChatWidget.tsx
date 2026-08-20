@@ -1,17 +1,19 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { MessageSquare, X, Send, Minimize2, Maximize2, GripVertical, Sparkles } from "lucide-react";
+import Link from "next/link";
+import { MessageSquare, X, Send, Minimize2, Maximize2, GripVertical, Sparkles, LogIn, UserPlus } from "lucide-react";
 import { createChatSession, addChatMessage, getVisitorUnreadCount } from "@/lib/chat";
 import { Dictionary } from "@/i18n/dictionaries";
+import { useAuth } from "@/context/AuthContext";
 
 export default function ChatWidget({ dict, locale }: { dict: Dictionary; locale: string }) {
   const t = dict.chat;
+  const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<any[]>([]);
-  const [visitorInfo, setVisitorInfo] = useState({ name: "", email: "" });
   const [isRegistered, setIsRegistered] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [isTyping, setIsTyping] = useState(false);
@@ -23,6 +25,7 @@ export default function ChatWidget({ dict, locale }: { dict: Dictionary; locale:
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
   const mountedRef = useRef(true);
+  const prevUserRef = useRef(user);
 
   // Persist visitor ID in localStorage so sessions survive page reloads
   const visitorIdRef = useRef<string>(
@@ -184,16 +187,61 @@ export default function ChatWidget({ dict, locale }: { dict: Dictionary; locale:
     };
   }, [isDragging, dragStart, position]);
 
-  const handleRegister = () => {
-    if (!visitorInfo.name.trim()) {
-      alert(t.enterName);
-      return;
+  // Auto-register chat when user logs in
+  useEffect(() => {
+    if (user && !prevUserRef.current && !isRegistered) {
+      // User just logged in - auto-create session
+      const session = createChatSession(
+        visitorIdRef.current,
+        `${user.firstName} ${user.lastName}`,
+        user.email
+      );
+      setSessionId(session.id);
+      setIsRegistered(true);
+
+      setTimeout(() => {
+        if (!mountedRef.current) return;
+        const welcomeMsg = addChatMessage(session.id, {
+          visitorId: session.visitorId,
+          visitorName: `${user.firstName} ${user.lastName}`,
+          visitorEmail: user.email,
+          message: t.welcomeMsg.replace("{name}", user.firstName),
+          isAdmin: true,
+          read: false,
+        });
+        setMessages([welcomeMsg]);
+      }, 100);
     }
+    prevUserRef.current = user;
+  }, [user, isRegistered, t.welcomeMsg]);
+
+  // Restore existing session on mount if user is logged in
+  useEffect(() => {
+    if (user && !sessionId && !isRegistered) {
+      try {
+        const raw = localStorage.getItem('chat_sessions');
+        if (raw) {
+          const allSessions = JSON.parse(raw);
+          const existingSession = allSessions.find(
+            (s: any) => s.visitorId === visitorIdRef.current && s.visitorEmail === user.email
+          );
+          if (existingSession) {
+            setSessionId(existingSession.id);
+            setIsRegistered(true);
+            setMessages(existingSession.messages || []);
+          }
+        }
+      } catch { /* ignore */ }
+    }
+  }, [user, sessionId, isRegistered]);
+
+  const handleRegister = () => {
+    if (!user) return;
 
     const session = createChatSession(
       visitorIdRef.current,
-      visitorInfo.name,
-      visitorInfo.email || undefined
+      `${user.firstName} ${user.lastName}`,
+      user.email
     );
 
     if (!mountedRef.current) return;
@@ -205,9 +253,9 @@ export default function ChatWidget({ dict, locale }: { dict: Dictionary; locale:
       if (!mountedRef.current) return;
       const welcomeMsg = addChatMessage(session.id, {
         visitorId: session.visitorId,
-        visitorName: visitorInfo.name,
-        visitorEmail: visitorInfo.email,
-        message: t.welcomeMsg.replace("{name}", visitorInfo.name),
+        visitorName: `${user.firstName} ${user.lastName}`,
+        visitorEmail: user.email,
+        message: t.welcomeMsg.replace("{name}", user.firstName),
         isAdmin: true,
         read: false
       });
@@ -217,12 +265,12 @@ export default function ChatWidget({ dict, locale }: { dict: Dictionary; locale:
   };
 
   const handleSendMessage = () => {
-    if (!message.trim() || !sessionId) return;
+    if (!message.trim() || !sessionId || !user) return;
 
     const userMessage = addChatMessage(sessionId, {
       visitorId: visitorIdRef.current,
-      visitorName: visitorInfo.name,
-      visitorEmail: visitorInfo.email,
+      visitorName: `${user.firstName} ${user.lastName}`,
+      visitorEmail: user.email,
       message: message.trim(),
       isAdmin: false,
       read: false
@@ -381,38 +429,56 @@ export default function ChatWidget({ dict, locale }: { dict: Dictionary; locale:
               <div className="flex flex-col h-[calc(100%-120px)]">
                 {/* Messages Area */}
                 <div className="flex-1 overflow-y-auto p-4 space-y-4">
-                  {!isRegistered ? (
+                  {!isRegistered && !user ? (
+                    <div className="space-y-4">
+                      <div className="text-center">
+                        <div className="w-16 h-16 bg-[#c8ff00]/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#c8ff00]/30">
+                          <LogIn className="w-8 h-8 text-[#c8ff00]" />
+                        </div>
+                        <h4 className="text-white font-semibold mb-2">{t.welcome}</h4>
+                        <p className="text-gray-400 text-sm">
+                          {locale === "fr"
+                            ? "Connectez-vous pour discuter avec notre équipe"
+                            : "Sign in to chat with our team"}
+                        </p>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Link
+                          href={`/${locale}/auth/signin`}
+                          onClick={() => { localStorage.setItem("evolt_auth_redirect", `/${locale}`); handleClose(); }}
+                          className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-[#c8ff00] to-[#a0cc00] hover:from-[#a0cc00] hover:to-[#8bb800] text-black font-semibold py-2.5 rounded-lg transition-all duration-300"
+                        >
+                          <LogIn className="w-4 h-4" />
+                          {locale === "fr" ? "Se connecter" : "Sign in"}
+                        </Link>
+                        <Link
+                          href={`/${locale}/auth/signup`}
+                          onClick={() => { localStorage.setItem("evolt_auth_redirect", `/${locale}`); handleClose(); }}
+                          className="w-full flex items-center justify-center gap-2 border border-[#c8ff00]/30 hover:border-[#c8ff00]/60 text-[#c8ff00] font-semibold py-2.5 rounded-lg transition-all duration-300"
+                        >
+                          <UserPlus className="w-4 h-4" />
+                          {locale === "fr" ? "Créer un compte" : "Create account"}
+                        </Link>
+                      </div>
+                    </div>
+                  ) : !isRegistered && user ? (
                     <div className="space-y-4">
                       <div className="text-center">
                         <div className="w-16 h-16 bg-[#c8ff00]/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#c8ff00]/30">
                           <MessageSquare className="w-8 h-8 text-[#c8ff00]" />
                         </div>
-                        <h4 className="text-white font-semibold mb-2">{t.welcome}</h4>
+                        <h4 className="text-white font-semibold mb-2">
+                          {locale === "fr" ? "Bonjour" : "Hello"} {user.firstName} !
+                        </h4>
                         <p className="text-gray-400 text-sm">{t.helpQuestion}</p>
                       </div>
-
-                      <div className="space-y-3">
-                        <input
-                          type="text"
-                          placeholder={t.namePlaceholder}
-                          value={visitorInfo.name}
-                          onChange={(e) => setVisitorInfo(prev => ({ ...prev, name: e.target.value }))}
-                          className="w-full bg-[#1a1a1f] border border-[#c8ff00]/20 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#c8ff00]/50 focus:border-[#c8ff00]/50 transition-all"
-                        />
-                        <input
-                          type="email"
-                          placeholder={t.emailPlaceholder}
-                          value={visitorInfo.email}
-                          onChange={(e) => setVisitorInfo(prev => ({ ...prev, email: e.target.value }))}
-                          className="w-full bg-[#1a1a1f] border border-[#c8ff00]/20 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#c8ff00]/50 focus:border-[#c8ff00]/50 transition-all"
-                        />
-                        <button
-                          onClick={handleRegister}
-                          className="w-full bg-gradient-to-r from-[#c8ff00] to-[#a0cc00] hover:from-[#a0cc00] hover:to-[#8bb800] text-black font-semibold py-2 rounded-lg transition-all duration-300 shadow-[#c8ff00]/20 hover:shadow-[#c8ff00]/30"
-                        >
-                          {t.startChat}
-                        </button>
-                      </div>
+                      <button
+                        onClick={handleRegister}
+                        className="w-full bg-gradient-to-r from-[#c8ff00] to-[#a0cc00] hover:from-[#a0cc00] hover:to-[#8bb800] text-black font-semibold py-2 rounded-lg transition-all duration-300"
+                      >
+                        {t.startChat}
+                      </button>
                     </div>
                   ) : (
                     <>

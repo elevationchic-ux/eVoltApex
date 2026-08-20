@@ -10,7 +10,10 @@ import { getProduct } from "@/lib/products";
 import { CustomerInfo, Order } from "@/lib/types";
 import { useCartStore } from "@/store/cart";
 import { useRegionStore } from "@/store/region";
-import { Lock, ShieldCheck, Sparkles, Truck, ArrowRight, Zap, CreditCard, Phone, CheckCircle2 } from "lucide-react";
+import { Lock, ShieldCheck, Sparkles, Truck, ArrowRight, Zap, CreditCard, Phone, CheckCircle2, LogIn, UserPlus } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import PaymentMethods from "@/components/PaymentMethods";
+import { PaymentMethod } from "@/components/PaymentMethods";
 
 const EMPTY_FORM: CustomerInfo = {
   prenom: "",
@@ -34,16 +37,31 @@ export default function CheckoutClient({
 }) {
   const { items, clear } = useCartStore();
   const { formatPrice, formatDeposit, getConfig } = useRegionStore();
+  const { user } = useAuth();
   const [mounted, setMounted] = useState(false);
   const [paymentMode, setPaymentMode] = useState<"deposit" | "full">("deposit");
   const [form, setForm] = useState<CustomerInfo>(EMPTY_FORM);
   const [errors, setErrors] = useState<Partial<Record<keyof CustomerInfo, string>>>({});
   const [submitting, setSubmitting] = useState(false);
   const [order, setOrder] = useState<Order | null>(null);
+  const [selectedPayment, setSelectedPayment] = useState<PaymentMethod | null>("card");
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Pre-fill form with user data when logged in
+  useEffect(() => {
+    if (user && mounted) {
+      setForm((prev) => ({
+        ...prev,
+        prenom: user.firstName || prev.prenom,
+        nom: user.lastName || prev.nom,
+        email: user.email || prev.email,
+        telephone: user.phone || prev.telephone,
+      }));
+    }
+  }, [user, mounted]);
 
   const t = dict.checkout;
   const config = getConfig();
@@ -51,6 +69,44 @@ export default function CheckoutClient({
   const isFr = locale === "fr";
 
   if (!mounted) return <div className="mt-8 text-zinc-500">{t.loading}</div>;
+
+  // Auth gate: require sign-in to checkout
+  if (!user) {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("evolt_auth_redirect", `/${locale}/checkout`);
+    }
+    return (
+      <div className="mt-10 mx-auto max-w-md rounded-3xl border border-zinc-800 bg-zinc-900/80 p-8 text-center backdrop-blur-md">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-lime-400/10 border border-lime-400/30 mb-5">
+          <Lock className="h-8 w-8 text-lime-400" />
+        </div>
+        <h2 className="text-xl font-bold text-white mb-2">
+          {isFr ? "Connexion requise" : "Sign in required"}
+        </h2>
+        <p className="text-sm text-zinc-400 mb-6">
+          {isFr
+            ? "Créez un compte ou connectez-vous pour finaliser votre commande"
+            : "Create an account or sign in to complete your order"}
+        </p>
+        <div className="space-y-3">
+          <Link
+            href={`/${locale}/auth/signin`}
+            className="w-full flex items-center justify-center gap-2 bg-lime-400 hover:bg-lime-300 text-zinc-950 font-bold py-3 rounded-xl transition"
+          >
+            <LogIn className="h-4 w-4" />
+            {isFr ? "Se connecter" : "Sign in"}
+          </Link>
+          <Link
+            href={`/${locale}/auth/signup`}
+            className="w-full flex items-center justify-center gap-2 border border-lime-400/30 hover:border-lime-400/60 text-lime-400 font-bold py-3 rounded-xl transition"
+          >
+            <UserPlus className="h-4 w-4" />
+            {isFr ? "Créer un compte" : "Create account"}
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   if (order) {
     return (
@@ -394,11 +450,27 @@ export default function CheckoutClient({
           </div>
         </div>
 
-        {/* Step 3: Registration & Legal */}
+        {/* Step 4: Payment Method */}
+        <div className="rounded-3xl border border-zinc-800 bg-zinc-900/80 p-6 sm:p-8 backdrop-blur-md">
+          <h2 className="text-lg font-bold text-white flex items-center gap-2 mb-4">
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-lime-400 text-xs font-black text-zinc-950">
+              4
+            </span>
+            {isFr ? "Mode de paiement" : "Payment method"}
+          </h2>
+          <PaymentMethods
+            locale={locale}
+            selectedMethod={selectedPayment}
+            onSelect={setSelectedPayment}
+            orderTotal={paymentMode === "deposit" ? 500 : total}
+          />
+        </div>
+
+        {/* Step 5: Registration & Legal */}
         <div className="rounded-3xl border border-zinc-800 bg-zinc-900/80 p-6 sm:p-8 backdrop-blur-md space-y-4">
           <h2 className="text-lg font-bold text-white flex items-center gap-2">
             <span className="flex h-6 w-6 items-center justify-center rounded-full bg-lime-400 text-xs font-black text-zinc-950">
-              4
+              5
             </span>
             {t.registration} & {t.step4Title}
           </h2>

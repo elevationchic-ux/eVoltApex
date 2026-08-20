@@ -19,6 +19,8 @@ const nextConfig = {
     ],
     unoptimized: true,
   },
+  // Ensure public folder is included in deployment
+  trailingSlash: false,
 };
 
 export default nextConfig;

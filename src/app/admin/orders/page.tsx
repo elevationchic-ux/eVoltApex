@@ -27,7 +27,7 @@ export default function AdminOrders() {
     loadOrders();
     const interval = setInterval(() => {
       loadOrders();
-    }, 2000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, []);

@@ -91,7 +91,7 @@ export default function AdminAnalytics() {
             <div className="p-3 bg-blue-500/20 rounded-lg">
               <Users className="w-6 h-6 text-blue-400" />
             </div>
-            <span className="text-green-400 text-sm font-medium">+12%</span>
+            <span className="text-gray-400 text-sm font-medium">{analytics.visitors.unique > 0 ? `${Math.round((analytics.visitors.total / analytics.visitors.unique - 1) * 100)}%` : '—'}</span>
           </div>
           <p className="text-gray-400 text-sm">Visiteurs uniques</p>
           <p className="text-2xl font-bold text-white mt-1">{analytics.visitors.unique}</p>
@@ -103,7 +103,7 @@ export default function AdminAnalytics() {
             <div className="p-3 bg-green-500/20 rounded-lg">
               <Eye className="w-6 h-6 text-green-400" />
             </div>
-            <span className="text-green-400 text-sm font-medium">+8%</span>
+            <span className="text-gray-400 text-sm font-medium">{analytics.pageViews > 0 && analytics.visitors.unique > 0 ? `${(analytics.pageViews / analytics.visitors.unique).toFixed(1)}x` : '—'}</span>
           </div>
           <p className="text-gray-400 text-sm">Pages vues</p>
           <p className="text-2xl font-bold text-white mt-1">{analytics.pageViews}</p>
@@ -119,7 +119,7 @@ export default function AdminAnalytics() {
             <div className="p-3 bg-purple-500/20 rounded-lg">
               <Clock className="w-6 h-6 text-purple-400" />
             </div>
-            <span className="text-green-400 text-sm font-medium">+15%</span>
+            <span className="text-gray-400 text-sm font-medium">{analytics.avgSessionDuration > 0 ? `${Math.floor(analytics.avgSessionDuration / 60)}m` : '—'}</span>
           </div>
           <p className="text-gray-400 text-sm">Durée moyenne</p>
           <p className="text-2xl font-bold text-white mt-1">
@@ -133,7 +133,7 @@ export default function AdminAnalytics() {
             <div className="p-3 bg-orange-500/20 rounded-lg">
               <TrendingUp className="w-6 h-6 text-orange-400" />
             </div>
-            <span className="text-red-400 text-sm font-medium">-3%</span>
+            <span className="text-gray-400 text-sm font-medium">{analytics.bounceRate > 0 ? `${analytics.bounceRate.toFixed(1)}%` : '—'}</span>
           </div>
           <p className="text-gray-400 text-sm">Taux de rebond</p>
           <p className="text-2xl font-bold text-white mt-1">{analytics.bounceRate.toFixed(1)}%</p>

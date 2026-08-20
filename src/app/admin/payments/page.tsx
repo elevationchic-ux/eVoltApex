@@ -30,7 +30,7 @@ export default function AdminPayments() {
     loadPayments();
     const interval = setInterval(() => {
       loadPayments();
-    }, 2000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, []);

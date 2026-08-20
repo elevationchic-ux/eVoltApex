@@ -44,7 +44,12 @@ export default function AdminLoginPage() {
       <div className="max-w-md w-full">
         <div className="bg-gray-800 rounded-2xl shadow-2xl p-8 border border-gray-700">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">Admin Panel</h1>
+            <div className="w-16 h-16 bg-gradient-to-br from-[#c8ff00] to-[#a0cc00] rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[#c8ff00]/20">
+              <svg className="w-8 h-8 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+              </svg>
+            </div>
+            <h1 className="text-3xl font-bold text-white mb-2">eVolt <span className="text-[#c8ff00]">Admin</span></h1>
             <p className="text-gray-400">Connexion administrateur</p>
           </div>
 
@@ -90,7 +95,12 @@ export default function AdminLoginPage() {
               disabled={loading}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? "Connexion..." : "Se connecter"}
+              {loading ? (
+                <span className="flex items-center justify-center space-x-2">
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <span>Connexion...</span>
+                </span>
+              ) : "Se connecter"}
             </button>
           </form>
 

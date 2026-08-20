@@ -16,8 +16,8 @@ export function middleware(request: NextRequest) {
     if (pathname.startsWith("/admin") || pathname.startsWith("/api/admin")) {
       return NextResponse.next();
     }
-    
-    const locale = "en"; // Default locale
+
+    const locale = "fr"; // Default locale for French site
     return NextResponse.redirect(
       new URL(`/${locale}${pathname}`, request.url)
     );
@@ -28,5 +28,5 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   // Skip all paths that should not be internationalized
-  matcher: ["/((?!api|_next|_vercel|.*\\..*).*)"],
+  matcher: ["/((?!api|_next|_vercel|icon|apple-icon|.*\\..*).*)"],
 };

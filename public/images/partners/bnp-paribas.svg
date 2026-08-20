@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80">
+  <g font-family="'Segoe UI', Arial, Helvetica, sans-serif">
+    <rect x="10" y="20" width="40" height="40" rx="9" fill="#009156"/>
+    <path d="M17 48 L26 34 L32 41 L43 27" stroke="#ffffff" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="62" y="43" font-size="26" font-weight="800" fill="#ffffff">BNP</text>
+    <text x="62" y="65" font-size="17" font-weight="500" fill="#a1a1aa" letter-spacing="1">Paribas</text>
+  </g>
+</svg>

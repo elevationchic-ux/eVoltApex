@@ -131,24 +131,44 @@ export default function InstitutionalTrustBanner({
         </div>
 
         {/* Partners Logo & Certifications Ribbon */}
-        <div className="mt-10 rounded-2xl bg-zinc-900/30 border border-zinc-800 p-4 flex flex-wrap items-center justify-between gap-6 text-xs text-zinc-400">
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-white">
-              {isFr ? "Partenaires Bancaires & Financement :" : "Banking & Financing Partners:"}
-            </span>
-            <span className="text-zinc-500">BNP Paribas • Cetelem • Sofinco LOA • Alma 3x/4x • Stripe 3DS2</span>
-          </div>
+        <div className="mt-10 rounded-2xl bg-zinc-900/30 border border-zinc-800 p-5">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div>
+              <span className="block text-[11px] font-bold uppercase tracking-widest text-zinc-400 mb-3">
+                {isFr ? "Partenaires Bancaires & Financement" : "Banking & Financing Partners"}
+              </span>
+              <div className="flex flex-wrap items-center gap-x-7 gap-y-3">
+                {[
+                  { src: "/images/partners/bnp-paribas.svg", alt: "BNP Paribas" },
+                  { src: "/images/partners/cetelem.svg", alt: "Cetelem" },
+                  { src: "/images/partners/sofinco.svg", alt: "Sofinco" },
+                  { src: "/images/partners/alma.svg", alt: "Alma" },
+                  { src: "/images/partners/stripe.svg", alt: "Stripe" },
+                  { src: "/images/partners/axa.svg", alt: "AXA Assurances" },
+                ].map((partner) => (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    key={partner.src}
+                    src={partner.src}
+                    alt={partner.alt}
+                    className="h-9 w-auto opacity-85 transition hover:opacity-100"
+                    loading="lazy"
+                  />
+                ))}
+              </div>
+            </div>
 
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1 text-emerald-400 font-medium">
-              <ShieldCheck className="h-4 w-4" />
-              {isFr ? "Garantie Financière AXA Assurances" : "AXA Insurance Coverage"}
-            </span>
-            <span className="text-zinc-600">|</span>
-            <span className="flex items-center gap-1 text-zinc-300">
-              <Phone className="h-3.5 w-3.5 text-lime-400" />
-              {isFr ? "Support Showroom : +33 1 45 78 90 00" : "Showroom Hotline: +33 1 45 78 90 00"}
-            </span>
+            <div className="flex items-center gap-4 shrink-0">
+              <span className="flex items-center gap-1 text-emerald-400 font-medium text-xs">
+                <ShieldCheck className="h-4 w-4" />
+                {isFr ? "Garantie Financière AXA Assurances" : "AXA Insurance Coverage"}
+              </span>
+              <span className="text-zinc-600">|</span>
+              <span className="flex items-center gap-1 text-zinc-300 text-xs">
+                <Phone className="h-3.5 w-3.5 text-lime-400" />
+                {isFr ? "Support Showroom : +33 1 45 78 90 00" : "Showroom Hotline: +33 1 45 78 90 00"}
+              </span>
+            </div>
           </div>
         </div>
       </div>

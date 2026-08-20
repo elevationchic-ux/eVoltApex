@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80">
+  <defs>
+    <linearGradient id="sofincoG" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FF4E2B"/>
+      <stop offset="100%" stop-color="#E4002B"/>
+    </linearGradient>
+  </defs>
+  <g font-family="'Segoe UI', Arial, Helvetica, sans-serif">
+    <path d="M26 22 C40 22 46 32 44 42 C42 52 34 58 24 58 C30 52 32 46 30 40 C28 34 22 30 16 30 C18 25 21 22 26 22 Z" fill="url(#sofincoG)"/>
+    <text x="56" y="50" font-size="30" font-weight="800" fill="#ffffff" letter-spacing="0.5">Sofinco</text>
+  </g>
+</svg>

@@ -37,7 +37,8 @@ interface PageViewData {
 const VISITORS_KEY = 'analytics_visitors';
 const PAGE_VIEWS_KEY = 'analytics_page_views';
 const ACTIVE_SESSIONS_KEY = 'analytics_active_sessions';
-const MAX_VISITORS = 1000; // Limit to prevent quota exceeded
+const MAX_VISITORS = 5000; // Increased limit for high traffic
+const PAGE_SIZE = 100; // Pagination for large datasets
 
 // Safe localStorage operations with quota handling
 function safeGetItem(key: string): string | null {
@@ -66,15 +67,15 @@ function safeSetItem(key: string, value: string): boolean {
 
 function cleanupOldData() {
   try {
-    // Remove old visitors (older than 30 days)
+    // Remove old visitors (older than 7 days for high traffic)
     const visitorsData = safeGetItem(VISITORS_KEY);
     if (visitorsData) {
       const visitors = JSON.parse(visitorsData);
-      const thirtyDaysAgo = new Date();
-      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
 
       const filteredVisitors = visitors.filter((v: VisitorData) => {
-        return new Date(v.createdAt) > thirtyDaysAgo;
+        return new Date(v.createdAt) > sevenDaysAgo;
       });
 
       // Keep only the most recent visitors if still too many

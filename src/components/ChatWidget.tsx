@@ -305,13 +305,15 @@ export default function ChatWidget() {
       {isOpen && (
         <div
           className={`fixed bg-[#0d0d10] rounded-2xl shadow-2xl border border-[#c8ff00]/20 z-[9999] transition-all overflow-hidden ${
-            isMinimized ? "w-80 h-16" : "w-96 h-[500px]"
+            isMinimized ? "w-80 h-16" : "w-96 h-[500px] md:w-[450px] md:h-[600px]"
           }`}
           style={{
             right: position.x === 0 ? '1.5rem' : 'auto',
             bottom: position.y === 0 ? '1.5rem' : 'auto',
             left: position.x !== 0 ? `${position.x}px` : 'auto',
             top: position.y !== 0 ? `${position.y}px` : 'auto',
+            maxWidth: isMinimized ? 'calc(100vw - 2rem)' : 'calc(100vw - 2rem)',
+            maxHeight: isMinimized ? '16' : 'calc(100vh - 4rem)',
             boxShadow: '0 25px 50px -12px rgba(200, 255, 0, 0.15)',
           }}
         >

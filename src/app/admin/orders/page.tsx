@@ -12,7 +12,7 @@ import {
   Clock,
   XCircle as XCircleIcon
 } from "lucide-react";
-import { getOrders } from "@/lib/orders";
+import { getOrders, subscribeToOrdersUpdates } from "@/lib/orders";
 import { Order } from "@/lib/types";
 import AdminLayout from "@/components/AdminLayout";
 
@@ -25,6 +25,12 @@ export default function AdminOrders() {
 
   useEffect(() => {
     loadOrders();
+    // Subscribe to real-time updates
+    const unsubscribe = subscribeToOrdersUpdates(() => {
+      loadOrders();
+    });
+
+    return () => unsubscribe();
   }, []);
 
   useEffect(() => {

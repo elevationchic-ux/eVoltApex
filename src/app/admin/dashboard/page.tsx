@@ -12,8 +12,8 @@ import {
   AlertCircle
 } from "lucide-react";
 import { getVisitors, getAnalyticsData } from "@/lib/analytics";
-import { getAdminNotifications } from "@/lib/admin";
-import { getOrders } from "@/lib/orders";
+import { getAdminNotifications, subscribeToNotificationsUpdates } from "@/lib/admin";
+import { getOrders, subscribeToOrdersUpdates } from "@/lib/orders";
 import AdminLayout from "@/components/AdminLayout";
 
 export default function AdminDashboard() {
@@ -27,7 +27,21 @@ export default function AdminDashboard() {
     loadData();
     // Refresh data every 30 seconds
     const interval = setInterval(loadData, 30000);
-    return () => clearInterval(interval);
+
+    // Subscribe to real-time updates
+    const unsubscribeNotifications = subscribeToNotificationsUpdates(() => {
+      setNotifications(getAdminNotifications().slice(0, 5));
+    });
+
+    const unsubscribeOrders = subscribeToOrdersUpdates(() => {
+      setOrders(getOrders());
+    });
+
+    return () => {
+      clearInterval(interval);
+      unsubscribeNotifications();
+      unsubscribeOrders();
+    };
   }, []);
 
   const loadData = () => {

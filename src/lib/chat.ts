@@ -27,6 +27,8 @@ interface ChatSession {
 // Storage keys
 const CHAT_SESSIONS_KEY = 'chat_sessions';
 const CHAT_EVENTS_KEY = 'chat_events';
+const MAX_SESSIONS = 1000; // Limit for high traffic
+const MAX_MESSAGES_PER_SESSION = 100; // Limit messages per session
 
 // Initialize storage
 function initializeStorage() {
@@ -51,11 +53,16 @@ function getAllSessions(): ChatSession[] {
 // Save all sessions
 function saveSessions(sessions: ChatSession[]) {
   if (typeof window === 'undefined') return;
-  localStorage.setItem(CHAT_SESSIONS_KEY, JSON.stringify(sessions));
-  // Trigger storage event for cross-tab sync
-  window.dispatchEvent(new Event('storage'));
-  // Add event for custom chat updates
-  window.dispatchEvent(new CustomEvent('chat-updated'));
+  const currentData = localStorage.getItem(CHAT_SESSIONS_KEY);
+  const newData = JSON.stringify(sessions);
+
+  // Only trigger events if data actually changed
+  if (currentData !== newData) {
+    localStorage.setItem(CHAT_SESSIONS_KEY, newData);
+    // The storage event is automatically triggered by the browser in other tabs
+    // We also trigger a custom event for the same tab
+    window.dispatchEvent(new CustomEvent('chat-updated'));
+  }
 }
 
 // Create a new chat session
@@ -76,6 +83,21 @@ export function createChatSession(visitorId: string, visitorName?: string, visit
 
   initializeStorage();
   const sessions = getAllSessions();
+
+  // Clean up old sessions if limit reached
+  if (sessions.length >= MAX_SESSIONS) {
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    const activeSessions = sessions.filter(s => new Date(s.lastMessageAt) > sevenDaysAgo);
+    const closedSessions = sessions.filter(s => s.status === 'closed');
+
+    // Keep active sessions and recent closed sessions
+    const filteredSessions = [
+      ...activeSessions,
+      ...closedSessions.slice(0, MAX_SESSIONS - activeSessions.length)
+    ];
+    saveSessions(filteredSessions);
+  }
 
   const session: ChatSession = {
     id: `chat-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
@@ -117,6 +139,11 @@ export function addChatMessage(sessionId: string, message: Omit<ChatMessage, "id
     id: `msg-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
     timestamp: new Date().toISOString()
   };
+
+  // Limit messages per session
+  if (session.messages.length >= MAX_MESSAGES_PER_SESSION) {
+    session.messages = session.messages.slice(-MAX_MESSAGES_PER_SESSION + 1);
+  }
 
   session.messages.push(chatMessage);
   session.lastMessageAt = chatMessage.timestamp;

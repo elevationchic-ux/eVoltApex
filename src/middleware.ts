@@ -5,6 +5,11 @@ import { isLocale, locales } from "@/i18n/config";
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
+  // Skip static files from locale middleware
+  if (pathname.startsWith("/images") || pathname.startsWith("/icons") || pathname.startsWith("/manifest.json") || pathname.startsWith("/sw.js")) {
+    return NextResponse.next();
+  }
+
   // Check if there is any supported locale in the pathname
   const pathnameIsMissingLocale = locales.every(
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`

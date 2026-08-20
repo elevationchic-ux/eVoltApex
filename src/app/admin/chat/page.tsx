@@ -24,17 +24,16 @@ export default function AdminChat() {
 
   useEffect(() => {
     loadSessions();
-    // Subscribe to real-time updates
-    const unsubscribe = subscribeToChatUpdates(() => {
+    const interval = setInterval(() => {
       loadSessions();
       if (selectedSession) {
         const updatedSessions = getChatSessions();
         const updatedSession = updatedSessions.find(s => s.id === selectedSession.id);
         setSelectedSession(updatedSession);
       }
-    });
+    }, 2000);
 
-    return () => unsubscribe();
+    return () => clearInterval(interval);
   }, [filter, selectedSession]);
 
   const loadSessions = () => {

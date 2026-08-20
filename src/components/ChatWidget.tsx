@@ -70,39 +70,26 @@ export default function ChatWidget() {
     scrollToBottom();
   }, [messages, isOpen]);
 
-  // Subscribe to real-time chat updates - only when chat is open
+  // Simple periodic check for updates instead of subscriptions
   useEffect(() => {
-    if (!sessionId || !isOpen) return;
+    if (!sessionId) return;
 
-    const unsubscribe = subscribeToChatUpdates(() => {
-      // Reload messages when chat updates
-      const session = (window as any).getChatSession?.(sessionId);
-      if (session) {
-        setMessages(session.messages);
-        // Check for unread admin messages
+    const interval = setInterval(() => {
+      if (isOpen) {
+        const session = (window as any).getChatSession?.(sessionId);
+        if (session) {
+          setMessages(session.messages);
+          const unread = getVisitorUnreadCount(visitorIdRef.current);
+          setUnreadCount(unread);
+        }
+      } else {
         const unread = getVisitorUnreadCount(visitorIdRef.current);
         setUnreadCount(unread);
       }
-    });
+    }, 2000);
 
-    return () => {
-      unsubscribe();
-    };
+    return () => clearInterval(interval);
   }, [sessionId, isOpen]);
-
-  // Separate effect for unread count when chat is closed
-  useEffect(() => {
-    if (isOpen) return; // Don't update unread count when chat is open
-
-    const unsubscribe = subscribeToChatUpdates(() => {
-      const unread = getVisitorUnreadCount(visitorIdRef.current);
-      setUnreadCount(unread);
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, [isOpen]);
 
   useEffect(() => {
     const handleGlobalMouseMove = (e: MouseEvent) => {

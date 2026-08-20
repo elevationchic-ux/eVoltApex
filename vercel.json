@@ -5,7 +5,6 @@
   "installCommand": "npm install",
   "devCommand": "npm run dev",
   "regions": ["cdg1"],
-  "public": true,
   "headers": [
     {
       "source": "/manifest.json",
@@ -59,6 +58,28 @@
           "value": "public, max-age=31536000, immutable"
         }
       ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/fr/images/:path*",
+      "destination": "/images/:path*"
+    },
+    {
+      "source": "/fr/icons/:path*",
+      "destination": "/icons/:path*"
+    },
+    {
+      "source": "/fr/manifest.json",
+      "destination": "/manifest.json"
+    },
+    {
+      "source": "/fr/sw.js",
+      "destination": "/sw.js"
+    },
+    {
+      "source": "/fr/sw-admin.js",
+      "destination": "/sw-admin.js"
     }
   ]
 }

@@ -15,7 +15,7 @@ import {
   ArrowUpRight,
   ArrowDownLeft
 } from "lucide-react";
-import { getPaymentNotifications, updatePaymentStatus, subscribeToPaymentsUpdates } from "@/lib/admin";
+import { getPaymentNotifications, updatePaymentStatus } from "@/lib/admin";
 import AdminLayout from "@/components/AdminLayout";
 
 export default function AdminPayments() {
@@ -28,12 +28,11 @@ export default function AdminPayments() {
 
   useEffect(() => {
     loadPayments();
-    // Subscribe to real-time updates
-    const unsubscribe = subscribeToPaymentsUpdates(() => {
+    const interval = setInterval(() => {
       loadPayments();
-    });
+    }, 2000);
 
-    return () => unsubscribe();
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {

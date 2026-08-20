@@ -25,12 +25,11 @@ export default function AdminOrders() {
 
   useEffect(() => {
     loadOrders();
-    // Subscribe to real-time updates
-    const unsubscribe = subscribeToOrdersUpdates(() => {
+    const interval = setInterval(() => {
       loadOrders();
-    });
+    }, 2000);
 
-    return () => unsubscribe();
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {

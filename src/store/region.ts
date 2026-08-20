@@ -206,6 +206,7 @@ export const useRegionStore = create<RegionState>()(
     }),
     {
       name: "evolt-region-storage",
+      skipHydration: true,
     }
   )
 );

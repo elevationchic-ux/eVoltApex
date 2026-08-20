@@ -53,6 +53,6 @@ export const useCartStore = create<CartState>()(
       clear: () => set({ items: [] }),
       count: () => get().items.reduce((sum, i) => sum + i.quantite, 0),
     }),
-    { name: "evolt-cart" }
+    { name: "evolt-cart", skipHydration: true }
   )
 );

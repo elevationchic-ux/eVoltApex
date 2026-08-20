@@ -11,6 +11,7 @@ import VisitorTracker from "@/components/VisitorTracker";
 import ChatWidget from "@/components/ChatWidget";
 import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import { AuthProvider } from "@/context/AuthContext";
+import HydrationProvider from "@/context/HydrationProvider";
 import Script from "next/script";
 
 // SVG favicon as data URI - brand logo from placeholder design
@@ -135,14 +136,16 @@ export default function LocaleLayout({
         className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col bg-[#09090b] text-zinc-100 antialiased selection:bg-lime-400 selection:text-zinc-950`}
       >
         <VisitorTracker />
-        <AuthProvider>
+        <HydrationProvider>
+          <AuthProvider>
           <Header locale={params.locale} dict={dict} />
           <main className="flex-1">{children}</main>
           <Footer dict={dict} locale={params.locale} />
           <MechanicAdvisorFloating locale={params.locale} />
           <ChatWidget dict={dict} locale={params.locale} />
           <PWAInstallPrompt dict={dict} />
-        </AuthProvider>
+          </AuthProvider>
+        </HydrationProvider>
         <Script
           id="register-sw"
           strategy="afterInteractive"

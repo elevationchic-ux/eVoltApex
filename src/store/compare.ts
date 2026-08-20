@@ -38,6 +38,6 @@ export const useCompareStore = create<CompareState>()(
       clear: () => set({ productIds: [] }),
       hasProduct: (productId) => get().productIds.includes(productId),
     }),
-    { name: "evolt-compare" }
+    { name: "evolt-compare", skipHydration: true }
   )
 );

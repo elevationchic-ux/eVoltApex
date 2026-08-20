@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Locale } from "@/i18n/config";
 import { Dictionary } from "@/i18n/dictionaries";
@@ -6,6 +9,8 @@ import { MotoIcon, VeloIcon } from "./VehicleIcons";
 
 export default function Footer({ dict, locale }: { dict: Dictionary; locale: Locale }) {
   const f = dict.footer;
+  const [year, setYear] = useState(2026);
+  useEffect(() => { setYear(new Date().getFullYear()); }, []);
   return (
     <footer className="border-t border-zinc-800 bg-zinc-950 text-zinc-300">
       {/* Top Value Proposition Strip */}
@@ -231,7 +236,7 @@ export default function Footer({ dict, locale }: { dict: Dictionary; locale: Loc
 
         {/* Bottom copyright & SEO legal strip */}
         <div className="mt-14 border-t border-zinc-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
-          <p>© {new Date().getFullYear()} {f.copyright}</p>
+          <p>© {year} {f.copyright}</p>
           <div className="flex items-center gap-6">
             <Link href={`/${locale}/legal`} className="hover:text-zinc-300 transition">
               {f.legalNotice}

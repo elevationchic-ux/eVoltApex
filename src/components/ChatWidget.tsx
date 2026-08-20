@@ -28,11 +28,20 @@ export default function ChatWidget({ dict, locale }: { dict: Dictionary; locale:
   const prevUserRef = useRef(user);
 
   // Persist visitor ID in localStorage so sessions survive page reloads
-  const visitorIdRef = useRef<string>(
-    typeof window !== 'undefined'
-      ? (localStorage.getItem('evolt_visitor_id') || (() => { const id = `visitor-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`; localStorage.setItem('evolt_visitor_id', id); return id; })())
-      : `visitor-${Date.now()}`
-  );
+  // Initialize with stable value to avoid hydration mismatch
+  const visitorIdRef = useRef<string>('visitor-initial');
+
+  // Set real visitor ID after mount (client-side only)
+  useEffect(() => {
+    const stored = localStorage.getItem('evolt_visitor_id');
+    if (stored) {
+      visitorIdRef.current = stored;
+    } else {
+      const id = `visitor-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      localStorage.setItem('evolt_visitor_id', id);
+      visitorIdRef.current = id;
+    }
+  }, []);
 
   // Track mounted state to prevent setState after unmount
   useEffect(() => {

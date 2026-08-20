@@ -130,12 +130,12 @@ export default function LocaleLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col bg-[#09090b] text-zinc-100 antialiased selection:bg-lime-400 selection:text-zinc-950`}
       >
-        <VisitorTracker />
+        {/* <VisitorTracker /> */}
         <Header locale={params.locale} dict={dict} />
         <main className="flex-1">{children}</main>
         <Footer dict={dict} locale={params.locale} />
         <MechanicAdvisorFloating locale={params.locale} />
-        <ChatWidget />
+        {/* <ChatWidget /> */}
         <PWAInstallPrompt />
         <Script
           id="register-sw"

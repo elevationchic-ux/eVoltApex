@@ -83,9 +83,27 @@ export default function Header({
         {/* Main Nav */}
         <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6">
           {/* Brand Logo */}
-          <Link href={`/${locale}`} className="flex items-center gap-2 group">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-lime-400 text-zinc-950 font-black text-xl shadow-glow-lime group-hover:scale-105 transition">
-              ⚡
+          <Link href={`/${locale}`} className="flex items-center gap-2.5 group">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl overflow-hidden shadow-glow-lime group-hover:scale-105 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" className="h-full w-full">
+                <defs>
+                  <linearGradient id="hdr-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#1a1a1f"/>
+                    <stop offset="100%" stopColor="#0d0d10"/>
+                  </linearGradient>
+                  <linearGradient id="hdr-accent" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#c8ff00"/>
+                    <stop offset="100%" stopColor="#a0cc00"/>
+                  </linearGradient>
+                </defs>
+                <rect width="192" height="192" rx="48" fill="url(#hdr-bg)"/>
+                <g transform="translate(96,80)">
+                  <circle cx="0" cy="0" r="42" fill="none" stroke="url(#hdr-accent)" strokeWidth="1.5" opacity="0.3"/>
+                  <circle cx="0" cy="0" r="32" fill="none" stroke="url(#hdr-accent)" strokeWidth="1" opacity="0.2"/>
+                  <path d="M-14,-22 L-7,-7 L7,-7 L14,-22 L10,-7 L14,7 L7,0 L-7,0 L-14,7 L-10,-7 Z" fill="url(#hdr-accent)" opacity="0.8"/>
+                  <path d="M-6,10 L0,24 L6,10" fill="none" stroke="url(#hdr-accent)" strokeWidth="1.5" opacity="0.5"/>
+                </g>
+              </svg>
             </div>
             <div className="flex flex-col">
               <span className="text-2xl font-black tracking-tight text-white">

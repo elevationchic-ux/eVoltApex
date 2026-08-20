@@ -63,9 +63,27 @@ export default function Footer({ dict, locale }: { dict: Dictionary; locale: Loc
         <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
           {/* Brand & Manifesto */}
           <div className="space-y-4 md:col-span-4">
-            <Link href={`/${locale}`} className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-lime-400 text-zinc-950 font-black text-lg">
-                ⚡
+            <Link href={`/${locale}`} className="flex items-center gap-2.5">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl overflow-hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" className="h-full w-full">
+                  <defs>
+                    <linearGradient id="ftr-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#1a1a1f"/>
+                      <stop offset="100%" stopColor="#0d0d10"/>
+                    </linearGradient>
+                    <linearGradient id="ftr-accent" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#c8ff00"/>
+                      <stop offset="100%" stopColor="#a0cc00"/>
+                    </linearGradient>
+                  </defs>
+                  <rect width="192" height="192" rx="48" fill="url(#ftr-bg)"/>
+                  <g transform="translate(96,80)">
+                    <circle cx="0" cy="0" r="42" fill="none" stroke="url(#ftr-accent)" strokeWidth="1.5" opacity="0.3"/>
+                    <circle cx="0" cy="0" r="32" fill="none" stroke="url(#ftr-accent)" strokeWidth="1" opacity="0.2"/>
+                    <path d="M-14,-22 L-7,-7 L7,-7 L14,-22 L10,-7 L14,7 L7,0 L-7,0 L-14,7 L-10,-7 Z" fill="url(#ftr-accent)" opacity="0.8"/>
+                    <path d="M-6,10 L0,24 L6,10" fill="none" stroke="url(#ftr-accent)" strokeWidth="1.5" opacity="0.5"/>
+                  </g>
+                </svg>
               </div>
               <span className="text-2xl font-black tracking-tight text-white">
                 e<span className="text-lime-400">Volt</span>

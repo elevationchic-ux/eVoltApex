@@ -80,7 +80,30 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="flex items-center justify-between p-4 border-b border-gray-700">
-            <h1 className="text-xl font-bold text-white">eVolt <span className="text-[#c8ff00]">Admin</span></h1>
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg overflow-hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" className="h-full w-full">
+                  <defs>
+                    <linearGradient id="adm-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#1a1a1f"/>
+                      <stop offset="100%" stopColor="#0d0d10"/>
+                    </linearGradient>
+                    <linearGradient id="adm-accent" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#c8ff00"/>
+                      <stop offset="100%" stopColor="#a0cc00"/>
+                    </linearGradient>
+                  </defs>
+                  <rect width="192" height="192" rx="48" fill="url(#adm-bg)"/>
+                  <g transform="translate(96,80)">
+                    <circle cx="0" cy="0" r="42" fill="none" stroke="url(#adm-accent)" strokeWidth="1.5" opacity="0.3"/>
+                    <circle cx="0" cy="0" r="32" fill="none" stroke="url(#adm-accent)" strokeWidth="1" opacity="0.2"/>
+                    <path d="M-14,-22 L-7,-7 L7,-7 L14,-22 L10,-7 L14,7 L7,0 L-7,0 L-14,7 L-10,-7 Z" fill="url(#adm-accent)" opacity="0.8"/>
+                    <path d="M-6,10 L0,24 L6,10" fill="none" stroke="url(#adm-accent)" strokeWidth="1.5" opacity="0.5"/>
+                  </g>
+                </svg>
+              </div>
+              <h1 className="text-xl font-bold text-white">eVolt <span className="text-[#c8ff00]">Admin</span></h1>
+            </div>
             <button 
               onClick={() => setSidebarOpen(false)}
               className="lg:hidden text-gray-400 hover:text-white"

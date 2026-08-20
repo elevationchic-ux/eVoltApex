@@ -1,46 +1,68 @@
-const CACHE_NAME = 'electro-bikes-v2';
+const CACHE_NAME = 'evolt-apex-v3';
 const urlsToCache = [
   '/',
   '/fr',
   '/en',
-  '/fr/catalogue',
-  '/en/catalogue',
-  '/fr/cart',
-  '/en/cart',
   '/manifest.json',
   '/icons/icon-192x192.svg',
   '/icons/icon-512x512.svg'
 ];
 
+// Install: cache core shell
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(urlsToCache))
   );
+  self.skipWaiting(); // Activate new SW immediately
 });
 
+// Fetch: network-first for JS/CSS/HTML, cache-first for static assets
 self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        if (response) {
+  const { request } = event;
+  const url = new URL(request.url);
+
+  // For navigation and JS bundles: always try network first
+  if (request.mode === 'navigate' || url.pathname.endsWith('.js') || url.pathname.endsWith('.css')) {
+    event.respondWith(
+      fetch(request)
+        .then(response => {
+          // Update cache with fresh copy
+          if (response.ok) {
+            const responseClone = response.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put(request, responseClone));
+          }
           return response;
-        }
-        return fetch(event.request);
+        })
+        .catch(() => caches.match(request).then(r => r || new Response('Offline', { status: 503 })))
+    );
+    return;
+  }
+
+  // For images/icons: cache-first
+  event.respondWith(
+    caches.match(request)
+      .then(response => {
+        if (response) return response;
+        return fetch(request).then(resp => {
+          if (resp.ok) {
+            const respClone = resp.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put(request, respClone));
+          }
+          return resp;
+        });
       })
   );
 });
 
+// Activate: clean old caches
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
-          }
-        })
+        cacheNames.filter(name => name !== CACHE_NAME).map(name => caches.delete(name))
       );
     })
   );
+  self.clients.claim(); // Take control immediately
 });

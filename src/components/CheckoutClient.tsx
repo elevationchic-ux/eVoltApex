@@ -15,6 +15,14 @@ import { useAuth } from "@/context/AuthContext";
 import PaymentMethods from "@/components/PaymentMethods";
 import { PaymentMethod } from "@/components/PaymentMethods";
 
+// Helper component to set auth redirect in useEffect (avoids hydration mismatch)
+function SetAuthRedirect({ locale }: { locale: string }) {
+  useEffect(() => {
+    localStorage.setItem("evolt_auth_redirect", `/${locale}/checkout`);
+  }, [locale]);
+  return null;
+}
+
 const EMPTY_FORM: CustomerInfo = {
   prenom: "",
   nom: "",
@@ -71,40 +79,40 @@ export default function CheckoutClient({
   if (!mounted) return <div className="mt-8 text-zinc-500">{t.loading}</div>;
 
   // Auth gate: require sign-in to checkout
-  if (!user) {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem("evolt_auth_redirect", `/${locale}/checkout`);
-    }
+  if (!user && mounted) {
     return (
-      <div className="mt-10 mx-auto max-w-md rounded-3xl border border-zinc-800 bg-zinc-900/80 p-8 text-center backdrop-blur-md">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-lime-400/10 border border-lime-400/30 mb-5">
-          <Lock className="h-8 w-8 text-lime-400" />
+      <>
+        <SetAuthRedirect locale={locale} />
+        <div className="mt-10 mx-auto max-w-md rounded-3xl border border-zinc-800 bg-zinc-900/80 p-8 text-center backdrop-blur-md">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-lime-400/10 border border-lime-400/30 mb-5">
+            <Lock className="h-8 w-8 text-lime-400" />
+          </div>
+          <h2 className="text-xl font-bold text-white mb-2">
+            {isFr ? "Connexion requise" : "Sign in required"}
+          </h2>
+          <p className="text-sm text-zinc-400 mb-6">
+            {isFr
+              ? "Créez un compte ou connectez-vous pour finaliser votre commande"
+              : "Create an account or sign in to complete your order"}
+          </p>
+          <div className="space-y-3">
+            <Link
+              href={`/${locale}/auth/signin`}
+              className="w-full flex items-center justify-center gap-2 bg-lime-400 hover:bg-lime-300 text-zinc-950 font-bold py-3 rounded-xl transition"
+            >
+              <LogIn className="h-4 w-4" />
+              {isFr ? "Se connecter" : "Sign in"}
+            </Link>
+            <Link
+              href={`/${locale}/auth/signup`}
+              className="w-full flex items-center justify-center gap-2 border border-lime-400/30 hover:border-lime-400/60 text-lime-400 font-bold py-3 rounded-xl transition"
+            >
+              <UserPlus className="h-4 w-4" />
+              {isFr ? "Créer un compte" : "Create account"}
+            </Link>
+          </div>
         </div>
-        <h2 className="text-xl font-bold text-white mb-2">
-          {isFr ? "Connexion requise" : "Sign in required"}
-        </h2>
-        <p className="text-sm text-zinc-400 mb-6">
-          {isFr
-            ? "Créez un compte ou connectez-vous pour finaliser votre commande"
-            : "Create an account or sign in to complete your order"}
-        </p>
-        <div className="space-y-3">
-          <Link
-            href={`/${locale}/auth/signin`}
-            className="w-full flex items-center justify-center gap-2 bg-lime-400 hover:bg-lime-300 text-zinc-950 font-bold py-3 rounded-xl transition"
-          >
-            <LogIn className="h-4 w-4" />
-            {isFr ? "Se connecter" : "Sign in"}
-          </Link>
-          <Link
-            href={`/${locale}/auth/signup`}
-            className="w-full flex items-center justify-center gap-2 border border-lime-400/30 hover:border-lime-400/60 text-lime-400 font-bold py-3 rounded-xl transition"
-          >
-            <UserPlus className="h-4 w-4" />
-            {isFr ? "Créer un compte" : "Create account"}
-          </Link>
-        </div>
-      </div>
+      </>
     );
   }
 

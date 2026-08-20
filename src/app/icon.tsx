@@ -10,10 +10,10 @@ export const size = {
 };
 export const contentType = "image/png";
 
-// Crisp lightning-bolt mark (Heroicons "bolt" path) with a lime gradient.
-const boltSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ecfccb"/><stop offset="45%" stop-color="#a3e635"/><stop offset="100%" stop-color="#4d7c0f"/></linearGradient></defs><path fill="url(#g)" d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z"/></svg>`;
+// Brand logo SVG matching the placeholder design (circles + lightning bolt)
+const brandSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"><defs><linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1a1a1f"/><stop offset="100%" stop-color="#0d0d10"/></linearGradient><linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c8ff00"/><stop offset="100%" stop-color="#a0cc00"/></linearGradient></defs><rect width="192" height="192" rx="48" fill="url(#bg)"/><g transform="translate(96,80)"><circle cx="0" cy="0" r="42" fill="none" stroke="url(#accent)" stroke-width="1.5" opacity="0.3"/><circle cx="0" cy="0" r="32" fill="none" stroke="url(#accent)" stroke-width="1" opacity="0.2"/><path d="M-14,-22 L-7,-7 L7,-7 L14,-22 L10,-7 L14,7 L7,0 L-7,0 L-14,7 L-10,-7 Z" fill="url(#accent)" opacity="0.7"/><path d="M-6,10 L0,24 L6,10" fill="none" stroke="url(#accent)" stroke-width="1.5" opacity="0.5"/></g><text x="96" y="148" text-anchor="middle" fill="#c8ff00" font-family="system-ui,sans-serif" font-size="11" font-weight="700" letter-spacing="3" opacity="0.7">EVOLT APEX</text></svg>`;
 
-const boltDataUri = `data:image/svg+xml;utf8,${encodeURIComponent(boltSvg)}`;
+const brandDataUri = `data:image/svg+xml;utf8,${encodeURIComponent(brandSvg)}`;
 
 // Image generation
 export default function Icon() {
@@ -26,17 +26,14 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "radial-gradient(circle at 50% 30%, #27272a 0%, #09090b 85%)",
-          borderRadius: 7,
-          border: "1px solid rgba(163,230,53,0.55)",
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={boltDataUri}
-          width={22}
-          height={22}
-          style={{ width: 22, height: 22 }}
+          src={brandDataUri}
+          width={32}
+          height={32}
+          style={{ width: 32, height: 32 }}
         />
       </div>
     ),

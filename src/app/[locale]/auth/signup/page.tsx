@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
@@ -26,12 +26,17 @@ export default function SignUpPage({ params }: { params: { locale: string } }) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [redirected, setRedirected] = useState(false);
 
-  // Redirect if already logged in
-  if (user) {
-    router.push(`/${locale}`);
-    return null;
-  }
+  // Redirect if already logged in (must be in useEffect to avoid hydration mismatch)
+  useEffect(() => {
+    if (user) {
+      router.push(`/${locale}`);
+      setRedirected(true);
+    }
+  }, [user, router, locale]);
+
+  if (redirected) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

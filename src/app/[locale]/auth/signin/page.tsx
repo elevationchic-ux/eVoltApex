@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
@@ -19,14 +19,19 @@ export default function SignInPage({ params }: { params: { locale: string } }) {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [redirected, setRedirected] = useState(false);
 
-  // Redirect if already logged in
-  if (user) {
-    const redirectTo = localStorage.getItem("evolt_auth_redirect");
-    localStorage.removeItem("evolt_auth_redirect");
-    router.push(redirectTo || `/${locale}`);
-    return null;
-  }
+  // Redirect if already logged in (must be in useEffect to avoid hydration mismatch)
+  useEffect(() => {
+    if (user) {
+      const redirectTo = localStorage.getItem("evolt_auth_redirect");
+      localStorage.removeItem("evolt_auth_redirect");
+      router.push(redirectTo || `/${locale}`);
+      setRedirected(true);
+    }
+  }, [user, router, locale]);
+
+  if (redirected) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

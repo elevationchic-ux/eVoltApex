@@ -106,7 +106,7 @@ export default function EcoBonusCalculator({
             >
               {products.map((p) => (
                 <option key={p.id} value={p.id}>
-                  {p.nom}  {formatPrice(p.prix, locale)}
+                  {productName(p, locale)}  {formatPrice(p.prix, locale)}
                 </option>
               ))}
             </select>
@@ -124,11 +124,11 @@ export default function EcoBonusCalculator({
             </label>
             <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
               {[
-                { code: "FR" as const, label: "France 🇫🇷" },
-                { code: "DE" as const, label: "Allemagne 🇩🇪" },
-                { code: "BE" as const, label: "Belgique 🇧🇪" },
-                { code: "CH" as const, label: "Suisse 🇨🇭" },
-                { code: "US" as const, label: "USA 🇺🇸" },
+                { code: "FR" as const, label: t.countries.fr },
+                { code: "DE" as const, label: t.countries.de },
+                { code: "BE" as const, label: t.countries.be },
+                { code: "CH" as const, label: t.countries.ch },
+                { code: "US" as const, label: t.countries.us },
               ].map((c) => (
                 <button
                   key={c.code}
@@ -156,11 +156,11 @@ export default function EcoBonusCalculator({
                 onChange={(e) => setRegionFr(e.target.value)}
                 className="w-full rounded-xl border border-zinc-700 bg-zinc-800 px-3.5 py-2.5 text-sm text-white focus:border-lime-400 focus:outline-none"
               >
-                <option value="idf">Île-de-France / Grand Paris (Subvention jusqu&apos;à 1 500 €)</option>
-                <option value="paca">Provence-Alpes-Côte d&apos;Azur / Métropole Nice-Marseille (Jusqu&apos;à 800 €)</option>
-                <option value="ara">Auvergne-Rhône-Alpes / Lyon / Grenoble (Jusqu&apos;à 800 €)</option>
-                <option value="occ">Occitanie / Toulouse / Montpellier (Jusqu&apos;à 600 €)</option>
-                <option value="other">Autre région française (Bonus National uniquement)</option>
+                <option value="idf">{t.regions.idf}</option>
+                <option value="paca">{t.regions.paca}</option>
+                <option value="ara">{t.regions.ara}</option>
+                <option value="occ">{t.regions.occ}</option>
+                <option value="other">{t.regions.other}</option>
               </select>
             </div>
           )}
@@ -179,7 +179,7 @@ export default function EcoBonusCalculator({
                   {t.primeConversion}
                 </span>
                 <p className="text-xs text-zinc-400 mt-0.5">
-                  J&apos;envoie à la casse un ancien 2-roues ou une voiture essence/diesel immatriculée avant 2011.
+                  {t.primeConversionDesc}
                 </p>
               </div>
             </label>
@@ -210,7 +210,7 @@ export default function EcoBonusCalculator({
             {bonusCalc.totalAids > 0 && (
               <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-lime-400/20 px-3 py-1 text-xs font-semibold text-lime-300">
                 <CheckCircle2 className="h-3.5 w-3.5" />
-                <span>Vous économisez {formatPrice(bonusCalc.totalAids, locale)} ({bonusCalc.savingsPercent}%)</span>
+                <span>{t.youSave} {formatPrice(bonusCalc.totalAids, locale)} ({bonusCalc.savingsPercent}%)</span>
               </div>
             )}
 

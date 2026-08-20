@@ -58,21 +58,21 @@ export default function AdminDashboard() {
     {
       name: "Visiteurs aujourd'hui",
       value: analytics?.visitors?.total || 0,
-      change: "+12%",
+      change: analytics?.visitorsChange || "—",
       icon: Eye,
       color: "bg-green-500"
     },
     {
       name: "Pages vues",
       value: analytics?.pageViews || 0,
-      change: "+8%",
+      change: analytics?.pageViewsChange || "—",
       icon: Eye,
       color: "bg-teal-500"
     },
     {
       name: "Durée moyenne",
-      value: `${Math.round(analytics?.avgSessionDuration / 60)}m`,
-      change: "+15%",
+      value: `${Math.round((analytics?.avgSessionDuration || 0) / 60)}m`,
+      change: analytics?.durationChange || "—",
       icon: Clock,
       color: "bg-purple-500"
     }
@@ -95,7 +95,7 @@ export default function AdminDashboard() {
               <div>
                 <p className="text-gray-400 text-sm">{stat.name}</p>
                 <p className="text-2xl font-bold text-white mt-1">{stat.value}</p>
-                <p className="text-green-400 text-sm mt-1">{stat.change}</p>
+                <p className="text-gray-400 text-sm mt-1">{stat.change !== "—" ? stat.change : ""}</p>
               </div>
               <div className={`${stat.color} p-3 rounded-lg`}>
                 <stat.icon className="w-6 h-6 text-white" />

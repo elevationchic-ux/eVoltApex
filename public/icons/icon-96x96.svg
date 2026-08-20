@@ -1,19 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <defs>
-    <linearGradient id="grad96" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#c8ff00;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#a0cc00;stop-opacity:1" />
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3f3f46"/>
+      <stop offset="55%" stop-color="#18181b"/>
+      <stop offset="100%" stop-color="#09090b"/>
+    </linearGradient>
+    <linearGradient id="bolt" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ecfccb"/>
+      <stop offset="45%" stop-color="#a3e635"/>
+      <stop offset="100%" stop-color="#4d7c0f"/>
     </linearGradient>
   </defs>
-  <rect width="96" height="96" rx="24" fill="#09090b"/>
-  <g transform="translate(16, 16)">
-    <circle cx="16" cy="48" r="12" fill="url(#grad96)"/>
-    <circle cx="16" cy="48" r="8" fill="#09090b"/>
-    <circle cx="48" cy="48" r="12" fill="url(#grad96)"/>
-    <circle cx="48" cy="48" r="8" fill="#09090b"/>
-    <path d="M16 36 L32 24 L48 24 L48 36 L40 44 L24 44 Z" fill="url(#grad96)"/>
-    <rect x="28" y="16" width="4" height="8" rx="2" fill="url(#grad96)"/>
-    <ellipse cx="32" cy="28" rx="6" ry="3" fill="url(#grad96)"/>
-    <path d="M24 8 L28 16 L32 12 L28 20 L32 28" fill="url(#grad96)"/>
+  <rect width="100" height="100" rx="24" fill="url(#bg)"/>
+  <rect x="1.5" y="1.5" width="97" height="97" rx="22.5" fill="none" stroke="#a3e635" stroke-opacity="0.45" stroke-width="1.5"/>
+  <circle cx="50" cy="47" r="33" fill="#a3e635" opacity="0.14"/>
+  <g transform="translate(22.4,22.4) scale(2.3)">
+    <path fill="url(#bolt)" d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z"/>
   </g>
 </svg>

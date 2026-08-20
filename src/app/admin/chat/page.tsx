@@ -12,7 +12,7 @@ import {
   Phone,
   Mail
 } from "lucide-react";
-import { getChatSessions, addChatMessage, updateChatSessionStatus, markMessagesAsRead, subscribeToChatUpdates } from "@/lib/chat";
+import { getChatSessions, addChatMessage, updateChatSessionStatus, markMessagesAsRead } from "@/lib/chat";
 import AdminLayout from "@/components/AdminLayout";
 
 export default function AdminChat() {
@@ -21,20 +21,27 @@ export default function AdminChat() {
   const [message, setMessage] = useState("");
   const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(false);
+  const [showSessionList, setShowSessionList] = useState(true);
 
   useEffect(() => {
     loadSessions();
     const interval = setInterval(() => {
       loadSessions();
-      if (selectedSession) {
-        const updatedSessions = getChatSessions();
-        const updatedSession = updatedSessions.find(s => s.id === selectedSession.id);
-        setSelectedSession(updatedSession);
-      }
-    }, 2000);
+    }, 3000);
 
     return () => clearInterval(interval);
-  }, [filter, selectedSession]);
+  }, [filter]);
+
+  // Keep selectedSession in sync with latest data
+  useEffect(() => {
+    if (!selectedSession) return;
+    const interval = setInterval(() => {
+      const updatedSessions = getChatSessions();
+      const updated = updatedSessions.find(s => s.id === selectedSession.id);
+      if (updated) setSelectedSession(updated);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [selectedSession?.id]);
 
   const loadSessions = () => {
     const statusFilter = filter === "all" ? undefined : filter;
@@ -73,6 +80,8 @@ export default function AdminChat() {
     setSelectedSession(session);
     markMessagesAsRead(session.id, true);
     loadSessions();
+    // On mobile, hide session list when a session is selected
+    setShowSessionList(false);
   };
 
   const handleStatusChange = async (sessionId: string, status: "pending" | "active" | "closed") => {
@@ -109,9 +118,20 @@ export default function AdminChat() {
 
   return (
     <AdminLayout>
-      <div className="flex h-[calc(100vh-200px)]">
+      <div className="flex flex-col md:flex-row h-[calc(100vh-200px)]">
+      {/* Mobile back button */}
+      {!showSessionList && (
+        <button
+          onClick={() => setShowSessionList(true)}
+          className="md:hidden p-3 bg-gray-800 border-b border-gray-700 text-white flex items-center space-x-2"
+        >
+          <MessageSquare className="w-5 h-5" />
+          <span>Retour aux sessions</span>
+        </button>
+      )}
+
       {/* Sessions List */}
-      <div className="w-1/3 border-r border-gray-700 flex flex-col">
+      <div className={`w-full md:w-1/3 border-r border-gray-700 flex flex-col ${!showSessionList ? 'hidden md:flex' : ''}`}>
         <div className="p-4 border-b border-gray-700">
           <h2 className="text-xl font-bold text-white mb-4">Sessions de chat</h2>
           <div className="flex space-x-2">
@@ -182,7 +202,7 @@ export default function AdminChat() {
       </div>
 
       {/* Chat Area */}
-      <div className="flex-1 flex flex-col">
+      <div className={`flex-1 flex flex-col ${showSessionList && selectedSession ? 'hidden md:flex' : ''}`}>
         {selectedSession ? (
           <>
             {/* Chat Header */}
@@ -219,7 +239,7 @@ export default function AdminChat() {
                   <option value="closed">Fermé</option>
                 </select>
                 <button
-                  onClick={() => setSelectedSession(null)}
+                  onClick={() => { setSelectedSession(null); setShowSessionList(true); }}
                   className="p-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-gray-400 hover:text-white transition-colors"
                 >
                   <X className="w-5 h-5" />
@@ -279,7 +299,7 @@ export default function AdminChat() {
                   type="text"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+                  onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
                   placeholder="Écrivez votre message..."
                   className="flex-1 bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   disabled={loading}

@@ -85,7 +85,7 @@ export default function FilterSidebar({
             }`}
           >
             <VeloIcon className="h-3.5 w-3.5" />
-            <span>Vélos</span>
+            <span>{t.veloShort}</span>
           </button>
           <button
             type="button"
@@ -97,7 +97,7 @@ export default function FilterSidebar({
             }`}
           >
             <MotoIcon className="h-3.5 w-3.5" />
-            <span>Motos</span>
+            <span>{t.motoShort}</span>
           </button>
         </div>
       </div>
@@ -113,14 +113,14 @@ export default function FilterSidebar({
           onChange={(e) => update({ license: e.target.value })}
           className="w-full rounded-xl border border-zinc-700 bg-zinc-800/90 px-3.5 py-2.5 text-xs text-white focus:border-lime-400 focus:outline-none"
         >
-          <option value="all">Tous les permis & homologations</option>
-          <option value="none">Sans Permis (VAE 25 km/h pistes cyclables)</option>
-          <option value="speed_pedelec">Speed-Bike 45 km/h (Permis AM/B)</option>
-          <option value="AM">Permis AM dès 14 ans (Équiv 50cc)</option>
-          <option value="A1_B">Permis A1 ou B + 7h (Équiv 125cc)</option>
-          <option value="A2">Permis Moto A2 (Jusqu&apos;à 35 kW)</option>
-          <option value="A">Permis Moto A (Pleine Puissance)</option>
-          <option value="offroad">100% Off-Road / Terrain privé (Sur-Ron 72V)</option>
+          <option value="all">{t.licenseOptions.all}</option>
+          <option value="none">{t.licenseOptions.none}</option>
+          <option value="speed_pedelec">{t.licenseOptions.speedPedelec}</option>
+          <option value="AM">{t.licenseOptions.am}</option>
+          <option value="A1_B">{t.licenseOptions.a1b}</option>
+          <option value="A2">{t.licenseOptions.a2}</option>
+          <option value="A">{t.licenseOptions.a}</option>
+          <option value="offroad">{t.licenseOptions.offroad}</option>
         </select>
       </div>
 
@@ -162,7 +162,7 @@ export default function FilterSidebar({
           className="w-full accent-cyan-400 cursor-pointer"
         />
         <div className="flex justify-between text-[10px] text-zinc-500 mt-1">
-          <span>Tous</span>
+          <span>{t.all}</span>
           <span>100 km</span>
           <span>250+ km</span>
         </div>

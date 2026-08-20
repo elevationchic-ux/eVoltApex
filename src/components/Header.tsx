@@ -70,7 +70,7 @@ export default function Header({
                 <span>{isFr ? "Réserver un Essai 30 min" : "Book 30-min VIP Test Ride"}</span>
               </button>
               <span className="text-zinc-500">|</span>
-              <RegionSwitcher />
+              <RegionSwitcher locale={locale} />
               <LocaleSwitcher locale={locale} />
             </div>
           </div>

@@ -16,6 +16,7 @@ interface RangeCalculatorProps {
 
 export default function RangeCalculator({
   initialProduct,
+  dict,
   locale,
 }: RangeCalculatorProps) {
   const [selectedProductId, setSelectedProductId] = useState<string>(
@@ -29,6 +30,7 @@ export default function RangeCalculator({
   const { formatDistance, formatWeight, getConfig } = useRegionStore();
   const config = getConfig();
   const isFr = locale === "fr";
+  const rt = dict?.range;
 
   const currentProduct = useMemo(() => {
     return products.find((p) => p.id === selectedProductId) || initialProduct || products[0];
@@ -97,7 +99,7 @@ export default function RangeCalculator({
         <div>
           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-lime-400">
             <Gauge className="h-4 w-4" />
-            <span>{isFr ? "Télémétrie d'Autonomie Réelle en Direct" : "Live Range & Telemetry Cockpit"}</span>
+            <span>{isFr ? "Télémétrie d'Autonomie Réelle en Direct" : rt?.liveTitle || "Live Range & Telemetry Cockpit"}</span>
           </div>
           <h3 className="mt-1 text-2xl font-black text-white sm:text-3xl tracking-tight">
             {productName(currentProduct, locale)}
@@ -108,7 +110,7 @@ export default function RangeCalculator({
         {!initialProduct && (
           <div className="sm:w-80">
             <label className="block text-[11px] font-semibold uppercase tracking-wider text-zinc-400 mb-1">
-              {isFr ? "Changer de Machine" : "Select Vehicle"}
+              {isFr ? "Changer de Machine" : rt?.selectVehicle || "Select Vehicle"}
             </label>
             <select
               value={selectedProductId}
@@ -133,18 +135,18 @@ export default function RangeCalculator({
             <div className="flex justify-between items-center text-xs font-bold text-white">
               <span className="flex items-center gap-1.5 text-lime-400">
                 <Wind className="h-4 w-4" />
-                {isFr ? "Style de Conduite" : "Riding Aggressiveness"}
+                {isFr ? "Style de Conduite" : rt?.ridingStyle || "Riding Aggressiveness"}
               </span>
               <span className="capitalize text-zinc-400">
-                {ridingStyle === "eco" ? (isFr ? "Éco / Ville Zen (25-45 km/h)" : "Eco Commuter") : ridingStyle === "mixed" ? (isFr ? "Mixte Quotidien (Normal)" : "Standard Road") : (isFr ? "Plein Gaz / Sport / Piste" : "Sport / Track Attack")}
+                {ridingStyle === "eco" ? (isFr ? "Éco / Ville Zen (25-45 km/h)" : rt?.styleEco || "Eco Commuter") : ridingStyle === "mixed" ? (isFr ? "Mixte Quotidien (Normal)" : rt?.styleMixed || "Standard Road") : (isFr ? "Plein Gaz / Sport / Piste" : rt?.styleSport || "Sport / Full Gas")}
               </span>
             </div>
 
             <div className="grid grid-cols-3 gap-2 pt-1">
               {[
-                { id: "eco", label: isFr ? "Zen Éco" : "Eco Zen", desc: "+25% Range" },
-                { id: "mixed", label: isFr ? "Normal" : "Mixed Road", desc: "Baseline" },
-                { id: "sport", label: isFr ? "Sport / Piste" : "Sport / Full Gas", desc: "-32% Range" },
+                { id: "eco", label: isFr ? "Zen Éco" : rt?.ecoLabel || "Eco Zen", desc: "+25% Range" },
+                { id: "mixed", label: isFr ? "Normal" : rt?.mixedLabel || "Mixed Road", desc: "Baseline" },
+                { id: "sport", label: isFr ? "Sport / Piste" : rt?.sportLabel || "Sport / Full Gas", desc: "-32% Range" },
               ].map((m) => (
                 <button
                   key={m.id}
@@ -167,7 +169,7 @@ export default function RangeCalculator({
             <div className="flex justify-between items-center text-xs font-bold text-white">
               <span className="flex items-center gap-1.5 text-cyan-400">
                 <User className="h-4 w-4" />
-                {isFr ? "Poids du Pilote & Équipement" : "Rider Weight & Gear"}
+                {isFr ? "Poids du Pilote & Équipement" : rt?.riderWeight || "Rider Weight & Gear"}
               </span>
               <span className="text-sm font-black text-cyan-400">{formatWeight(weightKg)}</span>
             </div>
@@ -181,9 +183,9 @@ export default function RangeCalculator({
               className="w-full accent-cyan-400 cursor-pointer h-2 bg-zinc-800 rounded-lg"
             />
             <div className="flex justify-between text-[10px] text-zinc-500 font-mono">
-              <span>{formatWeight(50)} (Léger)</span>
-              <span>{formatWeight(75)} (Standard)</span>
-              <span>{formatWeight(130)} (Duo / Bagages)</span>
+              <span>{formatWeight(50)} ({isFr ? "Léger" : rt?.light || "Light"})</span>
+              <span>{formatWeight(75)} ({isFr ? "Standard" : rt?.standard || "Standard"})</span>
+              <span>{formatWeight(130)} ({isFr ? "Duo / Bagages" : rt?.duoLuggage || "Duo / Luggage"})</span>
             </div>
           </div>
 
@@ -198,7 +200,7 @@ export default function RangeCalculator({
                 ) : (
                   <Thermometer className="h-4 w-4" />
                 )}
-                {isFr ? "Température Extérieure" : "Ambient Weather"}
+                {isFr ? "Température Extérieure" : rt?.temperature || "Ambient Weather"}
               </span>
               <span className={`text-sm font-black ${temperatureC <= 0 ? "text-cyan-400" : temperatureC >= 30 ? "text-orange-400" : "text-amber-400"}`}>
                 {temperatureC}°C ({Math.round(temperatureC * 1.8 + 32)}°F)
@@ -214,9 +216,9 @@ export default function RangeCalculator({
               className="w-full accent-amber-400 cursor-pointer h-2 bg-zinc-800 rounded-lg"
             />
             <div className="flex justify-between text-[10px] text-zinc-500 font-mono">
-              <span>-10°C (Hiver Glacial ❄️)</span>
-              <span>20°C (Printemps Idéal ☀️)</span>
-              <span>40°C (Canicule 🔥)</span>
+              <span>-10°C ({isFr ? "Hiver Glacial" : rt?.glacial || "Glacial Winter"} ❄️)</span>
+              <span>20°C ({isFr ? "Printemps Idéal" : rt?.spring || "Perfect Spring"} ☀️)</span>
+              <span>40°C ({isFr ? "Canicule" : rt?.heatwave || "Heatwave"} 🔥)</span>
             </div>
           </div>
 
@@ -225,15 +227,15 @@ export default function RangeCalculator({
             <div className="flex justify-between items-center text-xs font-bold text-white">
               <span className="flex items-center gap-1.5 text-emerald-400">
                 <Mountain className="h-4 w-4" />
-                {isFr ? "Topographie & Relief" : "Terrain & Elevation"}
+                {isFr ? "Topographie & Relief" : rt?.terrain || "Terrain & Elevation"}
               </span>
             </div>
 
             <div className="grid grid-cols-3 gap-2 pt-1">
               {[
-                { id: "flat", label: isFr ? "Plat / Bord de Mer" : "Flat / Sea Level", desc: "+10% Range" },
-                { id: "rolling", label: isFr ? "Vallonné Mixte" : "Rolling Hills", desc: "Standard" },
-                { id: "mountain", label: isFr ? "Cols de Montagne" : "Steep Mountain", desc: "-26% Range" },
+                { id: "flat", label: isFr ? "Plat / Bord de Mer" : rt?.flat || "Flat / Sea Level", desc: "+10% Range" },
+                { id: "rolling", label: isFr ? "Vallonné Mixte" : rt?.rolling || "Rolling Hills", desc: "Standard" },
+                { id: "mountain", label: isFr ? "Cols de Montagne" : rt?.mountain || "Steep Mountain", desc: "-26% Range" },
               ].map((tr) => (
                 <button
                   key={tr.id}
@@ -256,7 +258,7 @@ export default function RangeCalculator({
         <div className="lg:col-span-5 flex flex-col justify-between rounded-3xl border border-lime-400/40 bg-gradient-to-b from-zinc-900 via-zinc-950 to-zinc-950 p-6 sm:p-8 shadow-glow-lime">
           <div>
             <span className="text-[11px] font-extrabold uppercase tracking-widest text-zinc-400">
-              {isFr ? "Autonomie Réelle Estimée" : "Estimated Real Range"}
+              {isFr ? "Autonomie Réelle Estimée" : rt?.estimatedRange || "Estimated Real Range"}
             </span>
 
             {/* Huge Dynamic Number */}
@@ -265,14 +267,14 @@ export default function RangeCalculator({
                 {formatDistance(calculatedRange)}
               </span>
               <span className="text-xs font-bold text-zinc-400">
-                / {formatDistance(currentProduct.autonomie_km)} constructeur
+                / {formatDistance(currentProduct.autonomie_km)} {isFr ? "constructeur" : rt?.vsManufacturer || "manufacturer"}
               </span>
             </div>
 
             {/* Dynamic Visual Battery Gauge Bar */}
             <div className="mt-4 space-y-1.5">
               <div className="flex justify-between text-[11px] font-mono text-zinc-400">
-                <span>Rendement Réel : {rangePercent}%</span>
+                <span>{isFr ? "Rendement Réel" : rt?.realEfficiency || "Real Efficiency"}: {rangePercent}%</span>
                 <span>{consumptionWhPerKm} Wh/{config.unitSystem === "imperial" ? "mi" : "km"}</span>
               </div>
               <div className="h-3 w-full overflow-hidden rounded-full bg-zinc-800 p-0.5 border border-zinc-700">
@@ -286,12 +288,12 @@ export default function RangeCalculator({
             {/* Live Consumption & Economics Telemetry */}
             <div className="mt-6 grid grid-cols-2 gap-3 rounded-2xl bg-zinc-950/80 p-4 border border-zinc-800 text-xs">
               <div>
-                <span className="text-zinc-500">Capacité Pack :</span>
+                <span>{isFr ? "Capacité Pack" : rt?.packCapacity || "Pack Capacity"} :</span>
                 <p className="font-bold text-white mt-0.5">{kwh} kWh ({Math.round(kwh * 1000)} Wh)</p>
               </div>
               <div>
-                <span className="text-zinc-500">Coût aux 100 km :</span>
-                <p className="font-bold text-emerald-400 mt-0.5">~0,85 € (vs 7,50 € essence)</p>
+                <span>{isFr ? "Coût aux 100 km" : rt?.costPer100km || "Cost per 100 km"} :</span>
+                <p className="font-bold text-emerald-400 mt-0.5">{isFr ? "~0,85 € (vs 7,50 € essence)" : rt?.costEstimateEn || "~€0.85 (vs €7.50 gas)"}</p>
               </div>
             </div>
           </div>
@@ -300,24 +302,24 @@ export default function RangeCalculator({
           <div className="mt-6 border-t border-zinc-800 pt-4 space-y-3">
             <span className="text-xs font-bold text-white flex items-center gap-1.5">
               <Plug className="h-4 w-4 text-cyan-400" />
-              {isFr ? "Temps de Recharge Constatés" : "Real-World Charging Times"}
+              {isFr ? "Temps de Recharge Constatés" : rt?.chargingTimes || "Real-World Charging Times"}
             </span>
 
             <div className="space-y-2 text-xs">
               <div className="flex items-center justify-between rounded-xl bg-zinc-900 p-2.5 border border-zinc-800">
-                <span className="text-zinc-400">{isFr ? "Prise Domestique 230V (10A)" : "Standard 110V/230V Home"}</span>
-                <span className="font-bold text-white">{chargingStats.domesticHours} heures (0-100%)</span>
+                <span className="text-zinc-400">{isFr ? "Prise Domestique 230V (10A)" : rt?.domesticPlug || "Standard 110V/230V Home"}</span>
+                <span className="font-bold text-white">{chargingStats.domesticHours} {isFr ? "heures (0-100%)" : rt?.hoursFull || "hours (0-100%)"}</span>
               </div>
 
               <div className="flex items-center justify-between rounded-xl bg-zinc-900 p-2.5 border border-zinc-800">
-                <span className="text-zinc-400">{isFr ? "Prise Renforcée / Green'Up (16A)" : "Level 2 / Wallbox (16A)"}</span>
-                <span className="font-bold text-lime-400">{chargingStats.reinforcedHours} heures</span>
+                <span className="text-zinc-400">{isFr ? "Prise Renforcée / Green'Up (16A)" : rt?.reinforcedPlug || "Level 2 / Wallbox (16A)"}</span>
+                <span className="font-bold text-lime-400">{chargingStats.reinforcedHours} {isFr ? "heures" : rt?.hours || "hours"}</span>
               </div>
 
               {chargingStats.fastMinutes && (
                 <div className="flex items-center justify-between rounded-xl bg-cyan-950/30 p-2.5 border border-cyan-500/30">
-                  <span className="text-cyan-300 font-semibold">{isFr ? "Charge Rapide Combo CCS (DC)" : "DC Fast Charging (CCS)"}</span>
-                  <span className="font-black text-cyan-400">{chargingStats.fastMinutes} min (20-80%)</span>
+                  <span className="text-cyan-300 font-semibold">{isFr ? "Charge Rapide Combo CCS (DC)" : rt?.fastCharge || "DC Fast Charging (CCS)"}</span>
+                  <span className="font-black text-cyan-400">{chargingStats.fastMinutes} {rt?.minutes || "min"} (20-80%)</span>
                 </div>
               )}
             </div>

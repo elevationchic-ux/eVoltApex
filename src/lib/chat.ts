@@ -224,14 +224,18 @@ export function getUnreadMessageCount(): number {
   return count;
 }
 
-// Get unread message count for a specific visitor
+// Get unread message count for a specific visitor (checks most recent session)
 export function getVisitorUnreadCount(visitorId: string): number {
   const sessions = getAllSessions();
-  const session = sessions.find(s => s.visitorId === visitorId);
+  // Find the most recent session for this visitor
+  const visitorSessions = sessions.filter(s => s.visitorId === visitorId);
+  if (visitorSessions.length === 0) return 0;
 
-  if (!session) return 0;
+  const latestSession = visitorSessions.sort(
+    (a, b) => new Date(b.lastMessageAt).getTime() - new Date(a.lastMessageAt).getTime()
+  )[0];
 
-  return session.messages.filter(m => m.isAdmin && !m.read).length;
+  return latestSession.messages.filter(m => m.isAdmin && !m.read).length;
 }
 
 // Subscribe to chat updates (for real-time updates)

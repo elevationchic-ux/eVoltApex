@@ -53,8 +53,8 @@ export default function HomePage({
 
             {/* Main Headline */}
             <h1 className="text-balance text-4xl font-black tracking-tight text-white sm:text-6xl lg:text-7xl animate-fade-in-up leading-[1.08]">
-              L&apos;Excellence Électrique <br />
-              <span className="text-gradient-lime">Sans Aucun Compromis</span>
+              {dict.home.heroTitleLine1} <br />
+              <span className="text-gradient-lime">{dict.home.heroTitleLine2}</span>
             </h1>
 
             {/* Subtitle */}
@@ -113,7 +113,7 @@ export default function HomePage({
           <div>
             <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-lime-400 mb-1">
               <Zap className="h-4 w-4" />
-              <span>Sélection d&apos;Élite</span>
+              <span>{dict.home.featuredTag}</span>
             </div>
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
               {dict.home.featured}
@@ -156,7 +156,7 @@ export default function HomePage({
             {dict.home.categories}
           </h2>
           <p className="text-xs sm:text-sm text-zinc-400 mt-1">
-            Trouvez la monture adaptée à votre style de vie et vos trajets.
+            {dict.home.categoriesDesc}
           </p>
         </div>
 
@@ -169,7 +169,7 @@ export default function HomePage({
             <div className="absolute inset-0">
               <Image
                 src="https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&q=80"
-                alt="Vélos Électriques"
+                alt={dict.catalogue.velo}
                 fill
                 className="object-cover opacity-30 transition duration-500 group-hover:scale-105 group-hover:opacity-40"
               />
@@ -179,14 +179,14 @@ export default function HomePage({
             <div className="relative flex h-72 flex-col justify-end p-6">
               <div className="flex items-center gap-2 text-lime-400 font-bold text-xs uppercase tracking-wider mb-1">
                 <VeloIcon className="h-4 w-4" />
-                <span>Sans Permis</span>
+                <span>{dict.home.catVeloBadge}</span>
               </div>
               <h3 className="text-2xl font-bold text-white">{dict.catalogue.velo}</h3>
               <p className="text-xs text-zinc-300 mt-1">
-                Route Carbone, VTTAE Enduro, Gravel & Cargo Longtail
+                {dict.home.catVeloSubtypes}
               </p>
               <div className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-lime-400">
-                <span>Explorer les vélos</span>
+                <span>{dict.home.catVeloCta}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </div>
             </div>
@@ -200,7 +200,7 @@ export default function HomePage({
             <div className="absolute inset-0">
               <Image
                 src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=800&q=80"
-                alt="Motos Électriques"
+                alt={dict.catalogue.moto}
                 fill
                 className="object-cover opacity-30 transition duration-500 group-hover:scale-105 group-hover:opacity-40"
               />
@@ -210,14 +210,14 @@ export default function HomePage({
             <div className="relative flex h-72 flex-col justify-end p-6">
               <div className="flex items-center gap-2 text-cyan-400 font-bold text-xs uppercase tracking-wider mb-1">
                 <MotoIcon className="h-4 w-4" />
-                <span>Permis 125, A2 & A</span>
+                <span>{dict.home.catMotoBadge}</span>
               </div>
               <h3 className="text-2xl font-bold text-white">{dict.catalogue.moto}</h3>
               <p className="text-xs text-zinc-300 mt-1">
-                Roadsters Hyper, Trails Aventure, Scooters 125 & Néo-Rétro
+                {dict.home.catMotoSubtypes}
               </p>
               <div className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-cyan-400">
-                <span>Explorer les motos</span>
+                <span>{dict.home.catMotoCta}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </div>
             </div>
@@ -241,14 +241,14 @@ export default function HomePage({
             <div className="relative flex h-72 flex-col justify-end p-6">
               <div className="flex items-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-wider mb-1">
                 <Zap className="h-4 w-4" />
-                <span>Terrain Privé 72V</span>
+                <span>{dict.home.catOffroadBadge}</span>
               </div>
-              <h3 className="text-2xl font-bold text-white">Dirt Bikes & E-Cross</h3>
+              <h3 className="text-2xl font-bold text-white">{dict.home.catOffroadTitle}</h3>
               <p className="text-xs text-zinc-300 mt-1">
-                Puissance brute, 440 Nm de couple et franchissement extrême
+                {dict.home.catOffroadSubtypes}
               </p>
               <div className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-amber-400">
-                <span>Explorer le Dirt</span>
+                <span>{dict.home.catOffroadCta}</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </div>
             </div>
@@ -272,7 +272,7 @@ export default function HomePage({
           <div>
             <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-lime-400 mb-1">
               <Star className="h-4 w-4 fill-lime-400" />
-              <span>Plébiscités par la Communauté</span>
+              <span>{dict.home.bestsellersTag}</span>
             </div>
             <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
               {dict.home.bestsellers}

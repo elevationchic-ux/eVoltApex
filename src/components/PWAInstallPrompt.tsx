@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { Download, X, Smartphone, Monitor } from "lucide-react";
+import { Dictionary } from "@/i18n/dictionaries";
 
-export default function PWAInstallPrompt() {
+export default function PWAInstallPrompt({ dict }: { dict: Dictionary }) {
+  const t = dict.pwa;
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [showPrompt, setShowPrompt] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
@@ -103,7 +105,7 @@ export default function PWAInstallPrompt() {
       setShowPrompt(false);
     } else if (!isIOS) {
       // If no deferred prompt, try to trigger install
-      alert("L'installation n'est pas disponible actuellement. Assurez-vous que vous êtes sur un navigateur compatible (Chrome, Edge, Samsung Internet).");
+      alert(t.installAlert);
     }
   };
 
@@ -125,21 +127,21 @@ export default function PWAInstallPrompt() {
             </div>
             <div>
               <h3 className="text-white font-semibold text-sm">
-                {isIOS ? "Installer l'application" : "Installer Electro Bikes"}
+                {isIOS ? t.installTitleIOS : t.installTitle}
               </h3>
               <p className="text-gray-400 text-xs mt-1">
                 {isIOS
-                  ? "Ajoutez à l'écran d'accueil pour une expérience optimale"
+                  ? t.installDescIOS
                   : canInstall
-                  ? "Installez l'application pour un accès rapide"
-                  : "PWA disponible pour installation"}
+                  ? t.installDescReady
+                  : t.installDescAvailable}
               </p>
             </div>
           </div>
           <button
             onClick={handleDismiss}
             className="text-gray-400 hover:text-white transition-colors"
-            aria-label="Fermer"
+            aria-label={t.close}
           >
             <X className="w-4 h-4" />
           </button>
@@ -148,9 +150,9 @@ export default function PWAInstallPrompt() {
         {isIOS ? (
           <div className="bg-[#0d0d10] rounded-lg p-3 mb-3 border border-gray-700">
             <p className="text-gray-300 text-xs leading-relaxed">
-              <span className="text-[#c8ff00] font-semibold">1.</span> Appuyez sur le bouton "Partager" <span className="text-[#c8ff00]">⎵</span><br />
-              <span className="text-[#c8ff00] font-semibold">2.</span> Sélectionnez "Sur l'écran d'accueil"<br />
-              <span className="text-[#c8ff00] font-semibold">3.</span> Appuyez sur "Ajouter"
+              <span className="text-[#c8ff00] font-semibold">1.</span> {t.iosStep1} <span className="text-[#c8ff00]">{t.iosShare}</span> <span className="text-[#c8ff00]">⎵</span><br />
+              <span className="text-[#c8ff00] font-semibold">2.</span> {t.iosStep2} &quot;{t.iosHomeScreen}&quot;<br />
+              <span className="text-[#c8ff00] font-semibold">3.</span> {t.iosStep3} &quot;{t.iosAdd}&quot;
             </p>
           </div>
         ) : (
@@ -164,12 +166,12 @@ export default function PWAInstallPrompt() {
             }`}
           >
             <Download className="w-4 h-4" />
-            {canInstall ? "Installer maintenant" : "Installation non disponible"}
+            {canInstall ? t.installNow : t.installUnavailable}
           </button>
         )}
 
         <p className="text-gray-500 text-xs text-center mt-3">
-          Installation gratuite • Pas d'espace requis
+          {t.freeInstall}
         </p>
       </div>
     </div>

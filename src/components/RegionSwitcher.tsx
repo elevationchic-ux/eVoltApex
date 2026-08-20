@@ -4,7 +4,8 @@ import { useState } from "react";
 import { useRegionStore, REGIONS, RegionCode } from "@/store/region";
 import { ChevronDown, Check } from "lucide-react";
 
-export default function RegionSwitcher() {
+export default function RegionSwitcher({ locale }: { locale: string }) {
+  const isFr = locale === "fr";
   const { region, setRegion } = useRegionStore();
   const [isOpen, setIsOpen] = useState(false);
   const current = REGIONS[region] || REGIONS.FR;
@@ -14,7 +15,7 @@ export default function RegionSwitcher() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-1.5 rounded-full border border-zinc-700/80 bg-zinc-900/80 px-2.5 py-1 text-xs font-semibold text-zinc-300 hover:border-lime-400 hover:text-white transition"
-        title="Changer de région et devise"
+        title={isFr ? "Changer de région et devise" : "Change region & currency"}
       >
         <span>{current.flag}</span>
         <span className="font-bold text-lime-400">{current.currency}</span>
@@ -29,7 +30,7 @@ export default function RegionSwitcher() {
           />
           <div className="absolute right-0 top-full mt-2 z-50 w-64 rounded-2xl border border-zinc-800 bg-zinc-950/95 p-2 shadow-2xl backdrop-blur-xl animate-in fade-in zoom-in-95">
             <div className="px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-zinc-500 border-b border-zinc-800/80">
-              Région, Devise & Unités
+              {isFr ? "Région, Devise & Unités" : "Region, Currency & Units"}
             </div>
 
             <div className="mt-1 space-y-1">
@@ -55,7 +56,7 @@ export default function RegionSwitcher() {
                       <div>
                         <p className="font-bold text-white text-xs">{r.name}</p>
                         <p className="text-[10px] text-zinc-400">
-                          {r.currency} ({r.currencySymbol}) • {r.unitSystem === "imperial" ? "Miles & MPH" : "Kilomètres & KM/H"}
+                          {r.currency} ({r.currencySymbol}) • {r.unitSystem === "imperial" ? "Miles & MPH" : (isFr ? "Kilomètres & KM/H" : "Kilometers & KM/H")}
                         </p>
                       </div>
                     </div>
@@ -67,7 +68,9 @@ export default function RegionSwitcher() {
             </div>
 
             <div className="mt-2 border-t border-zinc-800/80 p-2 text-[10px] text-zinc-400 text-center leading-tight">
-              Aides gouvernementales (Bonus ASP, US EV Credit, iZEV) et unités adaptées instantanément.
+              {isFr
+                ? "Aides gouvernementales (Bonus ASP, US EV Credit, iZEV) et unités adaptées instantanément."
+                : "Government incentives (ASP Bonus, US EV Credit, iZEV) and units adapted instantly."}
             </div>
           </div>
         </>

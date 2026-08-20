@@ -138,8 +138,8 @@ export default function LocaleLayout({
         <main className="flex-1">{children}</main>
         <Footer dict={dict} locale={params.locale} />
         <MechanicAdvisorFloating locale={params.locale} />
-        {/* <ChatWidget /> */}
-        <PWAInstallPrompt />
+        <ChatWidget dict={dict} locale={params.locale} />
+        <PWAInstallPrompt dict={dict} />
         {/* Temporarily disabled service worker to test React errors
         <Script
           id="register-sw"

@@ -112,7 +112,7 @@ export default function CatalogueClient({
           <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/80 backdrop-blur-md p-4 lg:hidden">
             <div className="w-full max-h-[85vh] overflow-y-auto rounded-3xl border border-zinc-700 bg-zinc-950 p-5 shadow-2xl">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-bold text-white">Filtres de recherche</h3>
+                <h3 className="text-lg font-bold text-white">{dict.catalogue.searchFilters}</h3>
                 <button
                   onClick={() => setMobileFilterOpen(false)}
                   className="rounded-full bg-zinc-800 p-1.5 text-zinc-400 hover:text-white"
@@ -125,7 +125,7 @@ export default function CatalogueClient({
                 onClick={() => setMobileFilterOpen(false)}
                 className="mt-4 w-full rounded-xl bg-lime-400 py-3 text-sm font-bold text-zinc-950 shadow-glow-lime"
               >
-                Appliquer les filtres
+                {dict.catalogue.applyFilters}
               </button>
             </div>
           </div>
@@ -136,7 +136,7 @@ export default function CatalogueClient({
           <div className="mb-4 flex items-center justify-between text-xs text-zinc-400">
             <p>
               {loading ? (
-                <span>Recherche en cours...</span>
+                <span>{dict.catalogue.searching}</span>
               ) : (
                 <span className="font-semibold text-white">
                   {products.length} {dict.catalogue.results}

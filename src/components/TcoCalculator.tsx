@@ -73,7 +73,7 @@ export default function TcoCalculator({
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950/60 p-4">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-zinc-300">{t.annualDistance}</span>
-              <span className="text-lg font-bold text-lime-400">{annualKm.toLocaleString()} km/an</span>
+              <span className="text-lg font-bold text-lime-400">{annualKm.toLocaleString()} {t.kmPerYear}</span>
             </div>
             <input
               type="range"
@@ -85,9 +85,9 @@ export default function TcoCalculator({
               className="mt-3 w-full accent-lime-400 cursor-pointer"
             />
             <div className="mt-1 flex justify-between text-xs text-zinc-500">
-              <span>Occasionnel (3 000 km)</span>
-              <span>Navetteur (8 000 km)</span>
-              <span>Gros rouleur (20 000 km)</span>
+              <span>{t.occasional}</span>
+              <span>{t.commuter}</span>
+              <span>{t.heavyRider}</span>
             </div>
           </div>
 
@@ -137,10 +137,10 @@ export default function TcoCalculator({
               <span className="text-4xl sm:text-5xl font-black text-white">
                 +{formatPrice(savings.totalSavingsYear5, locale)}
               </span>
-              <span className="text-sm font-semibold text-lime-400">économisés</span>
+              <span className="text-sm font-semibold text-lime-400">{t.saved}</span>
             </div>
             <p className="text-xs text-zinc-400 mt-1">
-              Sur 5 ans, vos économies d&apos;usage amortissent jusqu&apos;à 60% du prix d&apos;achat d&apos;un véhicule neuf !
+              {t.fiveYearSavingsNote}
             </p>
 
             {/* Quick 1yr & 3yr badges */}
@@ -163,21 +163,21 @@ export default function TcoCalculator({
                 <Fuel className="h-4 w-4 text-amber-400" />
                 {t.breakdown.fuel}
               </span>
-              <span className="font-semibold text-lime-400">+{formatPrice(savings.fuelSavingsYear1, locale)} / an</span>
+              <span className="font-semibold text-lime-400">+{formatPrice(savings.fuelSavingsYear1, locale)} {t.perYear}</span>
             </div>
             <div className="flex items-center justify-between p-2 rounded-lg bg-zinc-900/40">
               <span className="flex items-center gap-2 text-zinc-300">
                 <Wrench className="h-4 w-4 text-cyan-400" />
                 {t.breakdown.maintenance}
               </span>
-              <span className="font-semibold text-lime-400">+{formatPrice(savings.maintenanceSavingsYear1, locale)} / an</span>
+              <span className="font-semibold text-lime-400">+{formatPrice(savings.maintenanceSavingsYear1, locale)} {t.perYear}</span>
             </div>
             <div className="flex items-center justify-between p-2 rounded-lg bg-zinc-900/40">
               <span className="flex items-center gap-2 text-zinc-300">
                 <ShieldCheck className="h-4 w-4 text-emerald-400" />
                 {t.breakdown.parkingAndTax}
               </span>
-              <span className="font-semibold text-lime-400">+{formatPrice(savings.parkingAndTaxSavingsYear1, locale)} / an</span>
+              <span className="font-semibold text-lime-400">+{formatPrice(savings.parkingAndTaxSavingsYear1, locale)} {t.perYear}</span>
             </div>
           </div>
         </div>

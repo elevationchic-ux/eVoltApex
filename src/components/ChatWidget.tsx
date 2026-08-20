@@ -2,9 +2,11 @@
 
 import { useState, useEffect, useRef } from "react";
 import { MessageSquare, X, Send, Minimize2, Maximize2, GripVertical, Sparkles } from "lucide-react";
-import { createChatSession, addChatMessage, getVisitorUnreadCount, subscribeToChatUpdates } from "@/lib/chat";
+import { createChatSession, addChatMessage, getVisitorUnreadCount } from "@/lib/chat";
+import { Dictionary } from "@/i18n/dictionaries";
 
-export default function ChatWidget() {
+export default function ChatWidget({ dict, locale }: { dict: Dictionary; locale: string }) {
+  const t = dict.chat;
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [message, setMessage] = useState("");
@@ -20,7 +22,20 @@ export default function ChatWidget() {
   const [unreadCount, setUnreadCount] = useState(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
-  const visitorIdRef = useRef<string>(`visitor-${Date.now()}`);
+  const mountedRef = useRef(true);
+
+  // Persist visitor ID in localStorage so sessions survive page reloads
+  const visitorIdRef = useRef<string>(
+    typeof window !== 'undefined'
+      ? (localStorage.getItem('evolt_visitor_id') || (() => { const id = `visitor-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`; localStorage.setItem('evolt_visitor_id', id); return id; })())
+      : `visitor-${Date.now()}`
+  );
+
+  // Track mounted state to prevent setState after unmount
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => { mountedRef.current = false; };
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -75,18 +90,36 @@ export default function ChatWidget() {
     if (!sessionId) return;
 
     const interval = setInterval(() => {
+      if (!mountedRef.current) return;
       if (isOpen) {
-        const session = (window as any).getChatSession?.(sessionId);
-        if (session) {
-          setMessages(session.messages);
-          const unread = getVisitorUnreadCount(visitorIdRef.current);
-          setUnreadCount(unread);
-        }
+        const sessions = (window as any).__chatSessionsCache;
+        // Read directly from localStorage for cross-tab safety
+        try {
+          const raw = localStorage.getItem('chat_sessions');
+          if (raw) {
+            const allSessions = JSON.parse(raw);
+            const session = allSessions.find((s: any) => s.id === sessionId);
+            if (session && mountedRef.current) {
+              setMessages(session.messages);
+              const unread = session.messages.filter((m: any) => m.isAdmin && !m.read).length;
+              setUnreadCount(unread);
+            }
+          }
+        } catch { /* ignore parse errors */ }
       } else {
-        const unread = getVisitorUnreadCount(visitorIdRef.current);
-        setUnreadCount(unread);
+        try {
+          const raw = localStorage.getItem('chat_sessions');
+          if (raw) {
+            const allSessions = JSON.parse(raw);
+            const session = allSessions.find((s: any) => s.visitorId === visitorIdRef.current);
+            if (session && mountedRef.current) {
+              const unread = session.messages.filter((m: any) => m.isAdmin && !m.read).length;
+              setUnreadCount(unread);
+            }
+          }
+        } catch { /* ignore parse errors */ }
       }
-    }, 2000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [sessionId, isOpen]);
@@ -153,7 +186,7 @@ export default function ChatWidget() {
 
   const handleRegister = () => {
     if (!visitorInfo.name.trim()) {
-      alert("Veuillez entrer votre nom");
+      alert(t.enterName);
       return;
     }
 
@@ -163,22 +196,24 @@ export default function ChatWidget() {
       visitorInfo.email || undefined
     );
 
+    if (!mountedRef.current) return;
     setSessionId(session.id);
     setIsRegistered(true);
 
     // Add welcome message
     setTimeout(() => {
+      if (!mountedRef.current) return;
       const welcomeMsg = addChatMessage(session.id, {
         visitorId: session.visitorId,
         visitorName: visitorInfo.name,
         visitorEmail: visitorInfo.email,
-        message: `Bonjour ${visitorInfo.name} ! Bienvenue sur Electro Bikes. Comment puis-je vous aider concernant nos vélos et motos électriques ?`,
+        message: t.welcomeMsg.replace("{name}", visitorInfo.name),
         isAdmin: true,
         read: false
       });
 
       setMessages([welcomeMsg]);
-    }, 0);
+    }, 100);
   };
 
   const handleSendMessage = () => {
@@ -199,12 +234,8 @@ export default function ChatWidget() {
 
     // Simulate admin response (in production, this would be real-time from admin panel)
     setTimeout(() => {
-      const responses = [
-        "Merci pour votre message ! Un conseiller spécialisé en véhicules électriques va vous répondre rapidement.",
-        "Je suis là pour vous aider concernant nos vélos et motos électriques. Pouvez-vous me donner plus de détails ?",
-        "Compris, je transmets votre demande à notre équipe technique spécialisée.",
-        "Je vais vérifier les informations sur nos modèles électriques pour vous tout de suite."
-      ];
+      if (!mountedRef.current) return;
+      const responses = t.responses;
 
       const adminResponse = addChatMessage(sessionId, {
         visitorId: visitorIdRef.current,
@@ -215,6 +246,7 @@ export default function ChatWidget() {
         read: false
       });
 
+      if (!mountedRef.current) return;
       setMessages(prev => [...prev, adminResponse]);
       setIsTyping(false);
     }, 1500);
@@ -222,6 +254,8 @@ export default function ChatWidget() {
 
   const handleToggleOpen = () => {
     if (!hasMoved) {
+      // Reset position to default bottom-right when opening
+      setPosition({ x: 0, y: 0 });
       setIsOpen(true);
     }
   };
@@ -231,6 +265,8 @@ export default function ChatWidget() {
   };
 
   const handleClose = () => {
+    // Reset position to default when closing so button returns to bottom-right
+    setPosition({ x: 0, y: 0 });
     setIsOpen(false);
   };
 
@@ -274,7 +310,7 @@ export default function ChatWidget() {
             style={{
               boxShadow: isDragging ? '0 25px 50px -12px rgba(200, 255, 0, 0.25)' : '0 10px 30px -10px rgba(0, 0, 0, 0.5)',
             }}
-            title="Discuter avec nous"
+            title={t.chatWithUs}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-[#c8ff00]/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <MessageSquare className="w-6 h-6 relative z-10 text-[#c8ff00]" />
@@ -315,10 +351,10 @@ export default function ChatWidget() {
                 <MessageSquare className="w-5 h-5 text-[#c8ff00]" />
               </div>
               <div>
-                <h3 className="text-white font-semibold">Support Client</h3>
+                <h3 className="text-white font-semibold">{t.title}</h3>
                 <p className="text-[#c8ff00]/70 text-sm flex items-center space-x-1">
                   <span className="w-2 h-2 bg-[#c8ff00] rounded-full animate-pulse" />
-                  <span>En ligne</span>
+                  <span>{t.online}</span>
                 </p>
               </div>
             </div>
@@ -351,21 +387,21 @@ export default function ChatWidget() {
                         <div className="w-16 h-16 bg-[#c8ff00]/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#c8ff00]/30">
                           <MessageSquare className="w-8 h-8 text-[#c8ff00]" />
                         </div>
-                        <h4 className="text-white font-semibold mb-2">Bienvenue !</h4>
-                        <p className="text-gray-400 text-sm">Comment pouvons-nous vous aider ?</p>
+                        <h4 className="text-white font-semibold mb-2">{t.welcome}</h4>
+                        <p className="text-gray-400 text-sm">{t.helpQuestion}</p>
                       </div>
 
                       <div className="space-y-3">
                         <input
                           type="text"
-                          placeholder="Votre nom *"
+                          placeholder={t.namePlaceholder}
                           value={visitorInfo.name}
                           onChange={(e) => setVisitorInfo(prev => ({ ...prev, name: e.target.value }))}
                           className="w-full bg-[#1a1a1f] border border-[#c8ff00]/20 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#c8ff00]/50 focus:border-[#c8ff00]/50 transition-all"
                         />
                         <input
                           type="email"
-                          placeholder="Votre email (optionnel)"
+                          placeholder={t.emailPlaceholder}
                           value={visitorInfo.email}
                           onChange={(e) => setVisitorInfo(prev => ({ ...prev, email: e.target.value }))}
                           className="w-full bg-[#1a1a1f] border border-[#c8ff00]/20 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#c8ff00]/50 focus:border-[#c8ff00]/50 transition-all"
@@ -374,7 +410,7 @@ export default function ChatWidget() {
                           onClick={handleRegister}
                           className="w-full bg-gradient-to-r from-[#c8ff00] to-[#a0cc00] hover:from-[#a0cc00] hover:to-[#8bb800] text-black font-semibold py-2 rounded-lg transition-all duration-300 shadow-[#c8ff00]/20 hover:shadow-[#c8ff00]/30"
                         >
-                          Commencer la discussion
+                          {t.startChat}
                         </button>
                       </div>
                     </div>
@@ -383,7 +419,7 @@ export default function ChatWidget() {
                       {messages.length === 0 ? (
                         <div className="text-center text-gray-400 py-8">
                           <MessageSquare className="w-12 h-12 mx-auto mb-4 opacity-50 text-[#c8ff00]" />
-                          <p>Démarrez la conversation !</p>
+                          <p>{t.startConversation}</p>
                         </div>
                       ) : (
                         messages.map((msg) => (
@@ -430,8 +466,8 @@ export default function ChatWidget() {
                         type="text"
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
-                        onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
-                        placeholder="Écrivez votre message..."
+                        onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
+                        placeholder={t.messagePlaceholder}
                         className="flex-1 bg-[#1a1a1f] border border-[#c8ff00]/20 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#c8ff00]/50 focus:border-[#c8ff00]/50 transition-all"
                       />
                       <button

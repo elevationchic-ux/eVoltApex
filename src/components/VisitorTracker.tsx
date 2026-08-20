@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { trackVisitor, updateVisitorActivity } from "@/lib/analytics";
 
 export default function VisitorTracker() {
-  const [visitorId, setVisitorId] = useState<string | null>(null);
-  const [currentPage, setCurrentPage] = useState<string>("");
+  const visitorIdRef = useRef<string | null>(null);
+  const currentPageRef = useRef<string>("");
 
   useEffect(() => {
     // Only track on client side
@@ -56,22 +56,22 @@ export default function VisitorTracker() {
       }
     });
 
-    setVisitorId(visitor.id);
-    setCurrentPage(window.location.pathname);
+    visitorIdRef.current = visitor.id;
+    currentPageRef.current = window.location.pathname;
 
     // Set up activity tracking interval
     const activityInterval = setInterval(() => {
-      if (visitorId) {
-        updateVisitorActivity(visitorId, window.location.pathname);
+      if (visitorIdRef.current) {
+        updateVisitorActivity(visitorIdRef.current, window.location.pathname);
       }
     }, 30000); // Update every 30 seconds
 
     // Track page changes
     const handleRouteChange = () => {
       const newPage = window.location.pathname;
-      if (visitorId && newPage !== currentPage) {
-        updateVisitorActivity(visitorId, newPage);
-        setCurrentPage(newPage);
+      if (visitorIdRef.current && newPage !== currentPageRef.current) {
+        updateVisitorActivity(visitorIdRef.current, newPage);
+        currentPageRef.current = newPage;
       }
     };
 
@@ -82,7 +82,7 @@ export default function VisitorTracker() {
       clearInterval(activityInterval);
       window.removeEventListener("popstate", handleRouteChange);
     };
-  }, [visitorId, currentPage]);
+  }, []); // Empty dependency array - run once on mount
 
   // This component doesn't render anything visible
   return null;

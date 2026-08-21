@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0f3460;stop-opacity:1"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="60%" r="38%">
+      <stop offset="0%" style="stop-color:#0096c7;stop-opacity:0.12"/>
+      <stop offset="100%" style="stop-color:transparent;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+  <rect width="900" height="500" fill="url(#bg)"/>
+  <ellipse cx="450" cy="380" rx="330" ry="55" fill="url(#glow)"/>
+  <!-- Wheels (smaller for scooter) -->
+  <circle cx="290" cy="325" r="50" fill="none" stroke="#444" stroke-width="7"/>
+  <circle cx="290" cy="325" r="40" fill="none" stroke="#383838" stroke-width="2.5"/>
+  <circle cx="290" cy="325" r="12" fill="#555"/>
+  <circle cx="630" cy="325" r="50" fill="none" stroke="#444" stroke-width="7"/>
+  <circle cx="630" cy="325" r="40" fill="none" stroke="#383838" stroke-width="2.5"/>
+  <circle cx="630" cy="325" r="12" fill="#555"/>
+  <!-- Body -->
+  <path d="M260,280 Q280,245 330,230 L520,220 Q580,222 615,242 L650,268 Q665,288 660,310 L648,325 L585,335 L395,338 L305,328 L260,308 Z" fill="#495057" stroke="#0096c7" stroke-width="2"/>
+        <path d="M330,230 L350,190 L410,172 L470,168 L510,178 L530,200 L530,225" fill="#495057" stroke="#0096c7" stroke-width="2" opacity="0.9"/>
+        <path d="M350,190 L340,165 L360,152 L400,148 L430,155 L435,175" fill="#0096c7" opacity="0.3"/>
+  <path d="M520,220 L560,200 L580,205 L570,225" fill="#0096c7" opacity="0.2"/>
+        <rect x="620" y="252" width="28" height="18" rx="5" fill="#FFE066" opacity="0.7"/>
+  <!-- Seat -->
+  <path d="M380,225 Q420,215 480,215 Q520,218 540,225 L530,232 Q500,225 460,223 Q420,223 390,230 Z" fill="#222" stroke="#333" stroke-width="1"/>
+  <!-- Label -->
+  <text x="450" y="460" text-anchor="middle" fill="#0096c7" font-family="Arial,sans-serif" font-size="16" font-weight="bold" opacity="0.7">BMW CE 02</text>
+</svg>

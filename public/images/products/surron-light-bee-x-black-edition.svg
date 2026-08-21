@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="60%" r="40%">
+      <stop offset="0%" style="stop-color:#ffd166;stop-opacity:0.15"/>
+      <stop offset="100%" style="stop-color:transparent;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+  <rect width="900" height="500" fill="url(#bg)"/>
+  <ellipse cx="450" cy="380" rx="350" ry="60" fill="url(#glow)"/>
+  <circle cx="220" cy="320" r="65" fill="none" stroke="#444" stroke-width="8"/>
+  <circle cx="220" cy="320" r="55" fill="none" stroke="#333" stroke-width="3"/>
+  <circle cx="220" cy="320" r="15" fill="#555"/>
+  <circle cx="680" cy="320" r="65" fill="none" stroke="#444" stroke-width="8"/>
+  <circle cx="680" cy="320" r="55" fill="none" stroke="#333" stroke-width="3"/>
+  <circle cx="680" cy="320" r="15" fill="#555"/>
+  <path d="M200,270 L240,240 L340,220 L440,210 L530,215 L610,235 L650,255 L670,275 L660,295 L590,305 L490,310 L390,310 L290,305 L230,295 L200,285 Z" fill="#1a1a1a" stroke="#ffd166" stroke-width="2"/>
+        <path d="M340,220 L370,180 L440,165 L510,160 L560,170 L590,195 L580,225" fill="#1a1a1a" stroke="#ffd166" stroke-width="2" opacity="0.9"/>
+        <path d="M370,180 L380,150 L410,135 L450,130 L480,140 L490,165" fill="#ffd166" opacity="0.4"/>
+  <path d="M200,270 L180,250 L190,240 L210,250" fill="#ffd166" opacity="0.4"/>
+        <path d="M650,255 L680,240 L690,250 L670,270" fill="#ffd166" opacity="0.4"/>
+  <path d="M350,210 Q400,195 480,195 Q520,195 540,205 L530,215 Q490,205 440,205 Q390,205 360,215 Z" fill="#222" stroke="#333" stroke-width="1"/>
+  <ellipse cx="640" cy="240" rx="15" ry="12" fill="#FFE066" opacity="0.8"/>
+  <ellipse cx="640" cy="240" rx="8" ry="6" fill="#FFF" opacity="0.9"/>
+  <text x="450" y="460" text-anchor="middle" fill="#ffd166" font-family="Arial,sans-serif" font-size="16" font-weight="bold" opacity="0.7">LB X Black Ed.</text>
+</svg>

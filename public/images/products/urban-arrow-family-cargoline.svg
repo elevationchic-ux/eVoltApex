@@ -1,45 +1,40 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0f2027;stop-opacity:1"/>
-      <stop offset="50%" style="stop-color:#203a43;stop-opacity:1"/>
-      <stop offset="100%" style="stop-color:#2c5364;stop-opacity:1"/>
+    <linearGradient id="bg99" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#000814"/>
+      <stop offset="50%" style="stop-color:#001d3d"/>
+      <stop offset="100%" style="stop-color:#003566"/>
     </linearGradient>
-    <radialGradient id="glow" cx="50%" cy="65%" r="35%">
-      <stop offset="0%" style="stop-color:#25a18e;stop-opacity:0.12"/>
+    <radialGradient id="glow99" cx="50%" cy="55%" r="45%">
+      <stop offset="0%" style="stop-color:#ffc300;stop-opacity:0.12"/>
       <stop offset="100%" style="stop-color:transparent;stop-opacity:0"/>
     </radialGradient>
+    <linearGradient id="floor99" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffc300;stop-opacity:0.08"/>
+      <stop offset="100%" style="stop-color:#000814;stop-opacity:0"/>
+    </linearGradient>
   </defs>
-  <rect width="900" height="500" fill="url(#bg)"/>
-  <ellipse cx="450" cy="380" rx="320" ry="50" fill="url(#glow)"/>
-  <!-- Wheels -->
-  <circle cx="250" cy="320" r="50" fill="none" stroke="#555" stroke-width="6"/>
-  <circle cx="250" cy="320" r="42" fill="none" stroke="#444" stroke-width="2"/>
-  <circle cx="250" cy="320" r="10" fill="#666"/>
-  <circle cx="650" cy="320" r="50" fill="none" stroke="#555" stroke-width="6"/>
-  <circle cx="650" cy="320" r="42" fill="none" stroke="#444" stroke-width="2"/>
-  <circle cx="650" cy="320" r="10" fill="#666"/>
-  <!-- Spokes -->
-  <line x1="292" y1="320" x2="208" y2="320" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="283.9787137637478" y1="344.6869805962839" x2="216.0212862362522" y2="295.3130194037161" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="262.9787137637478" y1="359.94437368439645" x2="237.0212862362522" y2="280.05562631560355" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="237.02128623625222" y1="359.94437368439645" x2="262.9787137637478" y2="280.05562631560355" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="216.0212862362522" y1="344.6869805962839" x2="283.9787137637478" y2="295.3130194037161" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="692" y1="320" x2="608" y2="320" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="683.9787137637478" y1="344.6869805962839" x2="616.0212862362522" y2="295.3130194037161" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="662.9787137637478" y1="359.94437368439645" x2="637.0212862362522" y2="280.05562631560355" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="637.0212862362522" y1="359.94437368439645" x2="662.9787137637478" y2="280.05562631560355" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="616.0212862362522" y1="344.6869805962839" x2="683.9787137637478" y2="295.3130194037161" stroke="#4a4a4a" stroke-width="1"/>
-  <!-- Frame -->
-  <path d="M220,300 L350,230 L500,230 L600,260 L680,300" fill="none" stroke="#004e64" stroke-width="7" stroke-linecap="round"/>
-        <path d="M350,230 L390,300 L500,230" fill="none" stroke="#004e64" stroke-width="6" stroke-linecap="round"/>
-        <path d="M350,230 L320,190 L300,185" fill="none" stroke="#004e64" stroke-width="5" stroke-linecap="round"/>
-        <path d="M500,230 L530,210 L555,210 L565,220" fill="none" stroke="#004e64" stroke-width="5" stroke-linecap="round"/>
-        <line x1="390" y1="300" x2="390" y2="260" stroke="#004e64" stroke-width="5"/>
-  <rect x="200" y="260" width="150" height="40" rx="5" fill="#25a18e" opacity="0.3" stroke="#25a18e" stroke-width="2"/>
-        <rect x="210" y="265" width="130" height="30" rx="3" fill="#004e64" opacity="0.2"/>
-  <!-- Seat -->
-  <ellipse cx="415" cy="252" rx="18" ry="6" fill="#333"/>
-  <!-- Label -->
-  <text x="450" y="460" text-anchor="middle" fill="#25a18e" font-family="Arial,sans-serif" font-size="16" font-weight="bold" opacity="0.7">URBAN ARROW</text>
+  <rect width="900" height="500" fill="url(#bg99)"/>
+  <ellipse cx="450" cy="380" rx="380" ry="70" fill="url(#glow99)"/>
+  <ellipse cx="450" cy="370" rx="320" ry="15" fill="url(#floor99)"/>
+  <circle cx="813" cy="113" r="23" fill="#ffc300" opacity="0.05"/>
+  <circle cx="86" cy="160" r="54" fill="#ffc300" opacity="0.07"/>
+  <circle cx="159" cy="207" r="25" fill="#ffc300" opacity="0.09"/>
+  <circle cx="232" cy="254" r="56" fill="#ffc300" opacity="0.11"/>
+  <circle cx="305" cy="301" r="27" fill="#ffc300" opacity="0.13"/>
+  <circle cx="200" cy="280" r="52" fill="none" stroke="#ffc300" stroke-width="4" opacity="0.8"/>
+       <circle cx="650" cy="280" r="52" fill="none" stroke="#ffc300" stroke-width="4" opacity="0.8"/>
+       <path d="M200,280 L350,220 Q420,250 500,220 L650,280" fill="none" stroke="#ffc300" stroke-width="4" opacity="0.9"/>
+       <line x1="350" y1="220" x2="400" y2="280" stroke="#ffc300" stroke-width="3" opacity="0.7"/>
+       <path d="M330,215 L310,180 L295,175" fill="none" stroke="#ffc300" stroke-width="3" opacity="0.8"/>
+       <path d="M500,220 L520,195 L540,195" fill="none" stroke="#ffc300" stroke-width="3" opacity="0.8"/>
+       <rect x="380" y="230" width="70" height="8" rx="4" fill="#ffc300" opacity="0.4"/>
+       <path d="M350,220 L360,200 Q400,190 440,200 L500,220" fill="#ffc300" opacity="0.15"/>
+  <!-- Brand label -->
+  <text x="450" y="430" text-anchor="middle" fill="#ffc300" font-family="Arial,sans-serif" font-size="13" font-weight="bold" opacity="0.6" letter-spacing="3">URBAN ARROW</text>
+  <!-- Product name -->
+  <text x="450" y="460" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="18" font-weight="bold" opacity="0.85">Urban Arrow Family Car...</text>
+  <!-- Corner accent -->
+  <rect x="20" y="20" width="60" height="3" rx="1.5" fill="#ffc300" opacity="0.5"/>
+  <rect x="20" y="28" width="30" height="3" rx="1.5" fill="#ffc300" opacity="0.3"/>
 </svg>

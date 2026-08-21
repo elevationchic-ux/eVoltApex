@@ -1,52 +1,39 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1"/>
-      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1"/>
+    <linearGradient id="bg13" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1b0000"/>
+      <stop offset="50%" style="stop-color:#3d0000"/>
+      <stop offset="100%" style="stop-color:#6b0000"/>
     </linearGradient>
-    <radialGradient id="glow" cx="50%" cy="60%" r="40%">
-      <stop offset="0%" style="stop-color:#adb5bd;stop-opacity:0.15"/>
+    <radialGradient id="glow13" cx="50%" cy="55%" r="45%">
+      <stop offset="0%" style="stop-color:#ff9500;stop-opacity:0.12"/>
       <stop offset="100%" style="stop-color:transparent;stop-opacity:0"/>
     </radialGradient>
-    <linearGradient id="floor" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#2a2a3e;stop-opacity:0.5"/>
-      <stop offset="100%" style="stop-color:#1a1a2e;stop-opacity:0"/>
+    <linearGradient id="floor13" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff9500;stop-opacity:0.08"/>
+      <stop offset="100%" style="stop-color:#1b0000;stop-opacity:0"/>
     </linearGradient>
   </defs>
-  <rect width="900" height="500" fill="url(#bg)"/>
-  <ellipse cx="450" cy="380" rx="350" ry="60" fill="url(#glow)"/>
-  <ellipse cx="450" cy="370" rx="300" ry="20" fill="url(#floor)"/>
-  <!-- Wheels -->
-  <circle cx="220" cy="320" r="65" fill="none" stroke="#444" stroke-width="8"/>
-  <circle cx="220" cy="320" r="55" fill="none" stroke="#333" stroke-width="3"/>
-  <circle cx="220" cy="320" r="15" fill="#555"/>
-  <circle cx="680" cy="320" r="65" fill="none" stroke="#444" stroke-width="8"/>
-  <circle cx="680" cy="320" r="55" fill="none" stroke="#333" stroke-width="3"/>
-  <circle cx="680" cy="320" r="15" fill="#555"/>
-  <!-- Spokes -->
-  <line x1="275" y1="320" x2="165" y2="320" stroke="#3a3a3a" stroke-width="1.5"/>
-  <line x1="267.6313972081441" y1="347.5" x2="172.36860279185586" y2="292.5" stroke="#3a3a3a" stroke-width="1.5"/>
-  <line x1="247.5" y1="367.6313972081441" x2="192.5" y2="272.3686027918559" stroke="#3a3a3a" stroke-width="1.5"/>
-  <line x1="220" y1="375" x2="220" y2="265" stroke="#3a3a3a" stroke-width="1.5"/>
-  <line x1="192.5" y1="367.6313972081441" x2="247.5" y2="272.3686027918559" stroke="#3a3a3a" stroke-width="1.5"/>
-  <line x1="172.36860279185586" y1="347.5" x2="267.6313972081441" y2="292.5" stroke="#3a3a3a" stroke-width="1.5"/>
-  <line x1="735" y1="320" x2="625" y2="320" stroke="#3a3a3a" stroke-width="1.5"/>
-  <line x1="727.6313972081441" y1="347.5" x2="632.3686027918559" y2="292.5" stroke="#3a3a3a" stroke-width="1.5"/>
-  <line x1="707.5" y1="367.6313972081441" x2="652.5" y2="272.3686027918559" stroke="#3a3a3a" stroke-width="1.5"/>
-  <line x1="680" y1="375" x2="680" y2="265" stroke="#3a3a3a" stroke-width="1.5"/>
-  <line x1="652.5" y1="367.6313972081441" x2="707.5" y2="272.3686027918559" stroke="#3a3a3a" stroke-width="1.5"/>
-  <line x1="632.3686027918559" y1="347.5" x2="727.6313972081441" y2="292.5" stroke="#3a3a3a" stroke-width="1.5"/>
-  <!-- Body -->
-  <path d="M170,280 L220,250 L320,230 L420,215 L530,220 L630,240 L680,265 L700,290 L690,310 L600,320 L500,325 L400,325 L300,320 L220,310 L170,295 Z" fill="#6c757d" stroke="#adb5bd" stroke-width="2"/>
-        <path d="M320,230 L340,180 L400,155 L480,145 L540,155 L580,180 L600,220" fill="#6c757d" stroke="#adb5bd" stroke-width="2" opacity="0.9"/>
-        <path d="M400,145 L410,120 L430,110 L460,110 L480,120 L480,145" fill="#adb5bd" opacity="0.4"/>
-  <rect x="380" y="130" width="60" height="15" rx="3" fill="#adb5bd" opacity="0.5"/>
-        <path d="M300,260 L280,230 L290,220 L310,230" fill="#adb5bd" opacity="0.3"/>
-  <!-- Seat -->
-  <path d="M350,210 Q400,195 480,195 Q520,195 540,205 L530,215 Q490,205 440,205 Q390,205 360,215 Z" fill="#222" stroke="#333" stroke-width="1"/>
-  <!-- Headlight -->
-  <ellipse cx="640" cy="240" rx="15" ry="12" fill="#FFE066" opacity="0.8"/>
-  <ellipse cx="640" cy="240" rx="8" ry="6" fill="#FFF" opacity="0.9"/>
-  <!-- Label -->
-  <text x="450" y="460" text-anchor="middle" fill="#adb5bd" font-family="Arial,sans-serif" font-size="16" font-weight="bold" opacity="0.7">ZERO DS</text>
+  <rect width="900" height="500" fill="url(#bg13)"/>
+  <ellipse cx="450" cy="380" rx="380" ry="70" fill="url(#glow13)"/>
+  <ellipse cx="450" cy="370" rx="320" ry="15" fill="url(#floor13)"/>
+  <circle cx="231" cy="331" r="61" fill="#ff9500" opacity="0.05"/>
+  <circle cx="304" cy="78" r="32" fill="#ff9500" opacity="0.07"/>
+  <circle cx="377" cy="125" r="63" fill="#ff9500" opacity="0.09"/>
+  <circle cx="450" cy="172" r="34" fill="#ff9500" opacity="0.11"/>
+  <circle cx="523" cy="219" r="65" fill="#ff9500" opacity="0.13"/>
+  <circle cx="160" cy="300" r="55" fill="none" stroke="#ff9500" stroke-width="5" opacity="0.8"/>
+       <circle cx="720" cy="300" r="55" fill="none" stroke="#ff9500" stroke-width="5" opacity="0.8"/>
+       <path d="M160,300 L280,260 L440,245 L600,250 L700,270 L720,295" fill="#ff9500" opacity="0.15" stroke="#ff9500" stroke-width="3"/>
+       <path d="M440,245 L450,210 L520,195 L580,200 L600,220" fill="#ff9500" opacity="0.2" stroke="#ff9500" stroke-width="2"/>
+       <path d="M160,300 L120,290 L100,300 L110,310" fill="#ff9500" opacity="0.3"/>
+       <path d="M380,255 Q450,245 530,245 L520,255 Q450,255 390,260 Z" fill="#222" opacity="0.8"/>
+       <ellipse cx="680" cy="260" rx="15" ry="10" fill="#ff9500" opacity="0.3"/>
+  <!-- Brand label -->
+  <text x="450" y="430" text-anchor="middle" fill="#ff9500" font-family="Arial,sans-serif" font-size="13" font-weight="bold" opacity="0.6" letter-spacing="3">ZERO MOTORCYCLES</text>
+  <!-- Product name -->
+  <text x="450" y="460" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="18" font-weight="bold" opacity="0.85">Zero DS Dual Sport A2</text>
+  <!-- Corner accent -->
+  <rect x="20" y="20" width="60" height="3" rx="1.5" fill="#ff9500" opacity="0.5"/>
+  <rect x="20" y="28" width="30" height="3" rx="1.5" fill="#ff9500" opacity="0.3"/>
 </svg>

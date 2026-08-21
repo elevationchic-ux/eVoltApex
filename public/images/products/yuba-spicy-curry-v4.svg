@@ -1,45 +1,45 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0f2027;stop-opacity:1"/>
-      <stop offset="50%" style="stop-color:#203a43;stop-opacity:1"/>
-      <stop offset="100%" style="stop-color:#2c5364;stop-opacity:1"/>
+    <linearGradient id="bg97" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#212529"/>
+      <stop offset="50%" style="stop-color:#343a40"/>
+      <stop offset="100%" style="stop-color:#495057"/>
     </linearGradient>
-    <radialGradient id="glow" cx="50%" cy="65%" r="35%">
-      <stop offset="0%" style="stop-color:#ee9b00;stop-opacity:0.12"/>
+    <radialGradient id="glow97" cx="50%" cy="55%" r="45%">
+      <stop offset="0%" style="stop-color:#00f5d4;stop-opacity:0.12"/>
       <stop offset="100%" style="stop-color:transparent;stop-opacity:0"/>
     </radialGradient>
+    <linearGradient id="floor97" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00f5d4;stop-opacity:0.08"/>
+      <stop offset="100%" style="stop-color:#212529;stop-opacity:0"/>
+    </linearGradient>
   </defs>
-  <rect width="900" height="500" fill="url(#bg)"/>
-  <ellipse cx="450" cy="380" rx="320" ry="50" fill="url(#glow)"/>
-  <!-- Wheels -->
-  <circle cx="250" cy="320" r="55" fill="none" stroke="#555" stroke-width="6"/>
-  <circle cx="250" cy="320" r="47" fill="none" stroke="#444" stroke-width="2"/>
-  <circle cx="250" cy="320" r="10" fill="#666"/>
-  <circle cx="650" cy="320" r="55" fill="none" stroke="#555" stroke-width="6"/>
-  <circle cx="650" cy="320" r="47" fill="none" stroke="#444" stroke-width="2"/>
-  <circle cx="650" cy="320" r="10" fill="#666"/>
-  <!-- Spokes -->
-  <line x1="297" y1="320" x2="203" y2="320" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="288.0237987356225" y1="347.62590685774626" x2="211.97620126437747" y2="292.37409314225374" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="264.5237987356225" y1="364.6996562658722" x2="235.47620126437747" y2="275.3003437341278" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="235.47620126437747" y1="364.69965626587225" x2="264.5237987356225" y2="275.30034373412775" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="211.97620126437747" y1="347.62590685774626" x2="288.0237987356225" y2="292.37409314225374" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="697" y1="320" x2="603" y2="320" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="688.0237987356226" y1="347.62590685774626" x2="611.9762012643774" y2="292.37409314225374" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="664.5237987356226" y1="364.6996562658722" x2="635.4762012643774" y2="275.3003437341278" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="635.4762012643774" y1="364.69965626587225" x2="664.5237987356226" y2="275.30034373412775" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="611.9762012643774" y1="347.62590685774626" x2="688.0237987356226" y2="292.37409314225374" stroke="#4a4a4a" stroke-width="1"/>
-  <!-- Frame -->
-  <path d="M200,300 L340,230 L520,230 L650,260 L720,300" fill="none" stroke="#9b2226" stroke-width="7" stroke-linecap="round"/>
-        <path d="M340,230 L380,300 L520,230" fill="none" stroke="#9b2226" stroke-width="6" stroke-linecap="round"/>
-        <path d="M340,230 L310,190 L290,185" fill="none" stroke="#9b2226" stroke-width="5" stroke-linecap="round"/>
-        <path d="M520,230 L550,210 L575,210 L585,220" fill="none" stroke="#9b2226" stroke-width="5" stroke-linecap="round"/>
-        <line x1="380" y1="300" x2="380" y2="260" stroke="#9b2226" stroke-width="5"/>
-  <rect x="520" y="250" width="180" height="35" rx="5" fill="#ee9b00" opacity="0.3" stroke="#ee9b00" stroke-width="2"/>
-        <rect x="180" y="265" width="120" height="30" rx="5" fill="#ee9b00" opacity="0.2" stroke="#ee9b00" stroke-width="1.5"/>
-  <!-- Seat -->
-  <ellipse cx="415" cy="252" rx="18" ry="6" fill="#333"/>
-  <!-- Label -->
-  <text x="450" y="460" text-anchor="middle" fill="#ee9b00" font-family="Arial,sans-serif" font-size="16" font-weight="bold" opacity="0.7">YUBA SPICY CURRY</text>
+  <rect width="900" height="500" fill="url(#bg97)"/>
+  <ellipse cx="450" cy="380" rx="380" ry="70" fill="url(#glow97)"/>
+  <ellipse cx="450" cy="370" rx="320" ry="15" fill="url(#floor97)"/>
+  <circle cx="539" cy="139" r="49" fill="#00f5d4" opacity="0.05"/>
+  <circle cx="612" cy="186" r="20" fill="#00f5d4" opacity="0.07"/>
+  <circle cx="685" cy="233" r="51" fill="#00f5d4" opacity="0.09"/>
+  <circle cx="758" cy="280" r="22" fill="#00f5d4" opacity="0.11"/>
+  <circle cx="831" cy="327" r="53" fill="#00f5d4" opacity="0.13"/>
+  <circle cx="200" cy="280" r="60" fill="none" stroke="#00f5d4" stroke-width="6" opacity="0.8"/>
+       <circle cx="200" cy="280" r="50" fill="none" stroke="#00f5d4" stroke-width="2" opacity="0.3"/>
+       <circle cx="650" cy="280" r="60" fill="none" stroke="#00f5d4" stroke-width="6" opacity="0.8"/>
+       <circle cx="650" cy="280" r="50" fill="none" stroke="#00f5d4" stroke-width="2" opacity="0.3"/>
+       <line x1="200" y1="280" x2="370" y2="195" stroke="#00f5d4" stroke-width="5" opacity="0.9"/>
+       <line x1="370" y1="195" x2="540" y2="195" stroke="#00f5d4" stroke-width="5" opacity="0.9"/>
+       <line x1="540" y1="195" x2="650" y2="280" stroke="#00f5d4" stroke-width="5" opacity="0.9"/>
+       <line x1="370" y1="195" x2="410" y2="280" stroke="#00f5d4" stroke-width="4" opacity="0.7"/>
+       <line x1="410" y1="280" x2="540" y2="195" stroke="#00f5d4" stroke-width="4" opacity="0.7"/>
+       <path d="M350,190 L330,160 L310,155" fill="none" stroke="#00f5d4" stroke-width="4" opacity="0.8"/>
+       <line x1="310" y1="155" x2="350" y2="155" stroke="#00f5d4" stroke-width="3" opacity="0.6"/>
+       <path d="M540" y1="195" x2="560" y2="175" stroke="#00f5d4" stroke-width="4" opacity="0.8"/>
+       <rect x="390" y="205" width="90" height="12" rx="6" fill="#00f5d4" opacity="0.4"/>
+  <!-- Brand label -->
+  <text x="450" y="430" text-anchor="middle" fill="#00f5d4" font-family="Arial,sans-serif" font-size="13" font-weight="bold" opacity="0.6" letter-spacing="3">YUBA BICYCLES</text>
+  <!-- Product name -->
+  <text x="450" y="460" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="18" font-weight="bold" opacity="0.85">Yuba Spicy Curry V4 Bo...</text>
+  <!-- Corner accent -->
+  <rect x="20" y="20" width="60" height="3" rx="1.5" fill="#00f5d4" opacity="0.5"/>
+  <rect x="20" y="28" width="30" height="3" rx="1.5" fill="#00f5d4" opacity="0.3"/>
 </svg>

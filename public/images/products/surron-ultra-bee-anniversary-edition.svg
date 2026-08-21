@@ -1,28 +1,41 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1"/>
-      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1"/>
+    <linearGradient id="bg150" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0c29"/>
+      <stop offset="50%" style="stop-color:#302b63"/>
+      <stop offset="100%" style="stop-color:#24243e"/>
     </linearGradient>
-    <radialGradient id="glow" cx="50%" cy="60%" r="40%">
-      <stop offset="0%" style="stop-color:#ee9b00;stop-opacity:0.15"/>
+    <radialGradient id="glow150" cx="50%" cy="55%" r="45%">
+      <stop offset="0%" style="stop-color:#ff6b35;stop-opacity:0.12"/>
       <stop offset="100%" style="stop-color:transparent;stop-opacity:0"/>
     </radialGradient>
+    <linearGradient id="floor150" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b35;stop-opacity:0.08"/>
+      <stop offset="100%" style="stop-color:#0f0c29;stop-opacity:0"/>
+    </linearGradient>
   </defs>
-  <rect width="900" height="500" fill="url(#bg)"/>
-  <ellipse cx="450" cy="380" rx="350" ry="60" fill="url(#glow)"/>
-  <circle cx="220" cy="320" r="65" fill="none" stroke="#444" stroke-width="8"/>
-  <circle cx="220" cy="320" r="55" fill="none" stroke="#333" stroke-width="3"/>
-  <circle cx="220" cy="320" r="15" fill="#555"/>
-  <circle cx="680" cy="320" r="65" fill="none" stroke="#444" stroke-width="8"/>
-  <circle cx="680" cy="320" r="55" fill="none" stroke="#333" stroke-width="3"/>
-  <circle cx="680" cy="320" r="15" fill="#555"/>
-  <path d="M180,280 L220,240 L320,220 L420,210 L520,220 L600,240 L650,260 L680,280 L700,300 L680,310 L600,320 L500,325 L400,325 L300,320 L220,310 L180,300 Z" fill="#9b2226" stroke="#ee9b00" stroke-width="2"/>
-        <path d="M320,220 L350,180 L420,160 L500,155 L560,165 L600,190 L600,240" fill="#9b2226" stroke="#ee9b00" stroke-width="2" opacity="0.9"/>
-        <rect x="580" y="200" width="80" height="30" rx="5" fill="#ee9b00" opacity="0.8"/>
-  <path d="M650,250 L700,230 L720,240 L700,260" fill="#ee9b00" opacity="0.6"/>
-  <path d="M350,210 Q400,195 480,195 Q520,195 540,205 L530,215 Q490,205 440,205 Q390,205 360,215 Z" fill="#222" stroke="#333" stroke-width="1"/>
-  <ellipse cx="640" cy="240" rx="15" ry="12" fill="#FFE066" opacity="0.8"/>
-  <ellipse cx="640" cy="240" rx="8" ry="6" fill="#FFF" opacity="0.9"/>
-  <text x="450" y="460" text-anchor="middle" fill="#ee9b00" font-family="Arial,sans-serif" font-size="16" font-weight="bold" opacity="0.7">Ultra Bee Anniv.</text>
+  <rect width="900" height="500" fill="url(#bg150)"/>
+  <ellipse cx="450" cy="380" rx="380" ry="70" fill="url(#glow150)"/>
+  <ellipse cx="450" cy="370" rx="320" ry="15" fill="url(#floor150)"/>
+  <circle cx="600" cy="200" r="50" fill="#ff6b35" opacity="0.05"/>
+  <circle cx="673" cy="247" r="21" fill="#ff6b35" opacity="0.07"/>
+  <circle cx="746" cy="294" r="52" fill="#ff6b35" opacity="0.09"/>
+  <circle cx="819" cy="341" r="23" fill="#ff6b35" opacity="0.11"/>
+  <circle cx="92" cy="88" r="54" fill="#ff6b35" opacity="0.13"/>
+  <circle cx="180" cy="290" r="60" fill="none" stroke="#ff6b35" stroke-width="5" opacity="0.8"/>
+       <circle cx="180" cy="290" r="50" fill="none" stroke="#ff6b35" stroke-width="2" opacity="0.3"/>
+       <circle cx="700" cy="290" r="60" fill="none" stroke="#ff6b35" stroke-width="5" opacity="0.8"/>
+       <circle cx="700" cy="290" r="50" fill="none" stroke="#ff6b35" stroke-width="2" opacity="0.3"/>
+       <path d="M180,290 L280,230 L400,200 L550,195 L650,220 L700,260 L720,290" fill="#ff6b35" opacity="0.15" stroke="#ff6b35" stroke-width="2"/>
+       <path d="M400,200 L420,160 L500,145 L570,155 L600,180 L600,210" fill="#ff6b35" opacity="0.2" stroke="#ff6b35" stroke-width="2"/>
+       <path d="M650,220 L680,200 L710,210" fill="#ff6b35" opacity="0.3"/>
+       <ellipse cx="680" cy="225" rx="12" ry="8" fill="#FFE066" opacity="0.8"/>
+       <path d="M350,230 Q420,215 500,215 L490,225 Q420,225 360,235 Z" fill="#222" opacity="0.8"/>
+  <!-- Brand label -->
+  <text x="450" y="430" text-anchor="middle" fill="#ff6b35" font-family="Arial,sans-serif" font-size="13" font-weight="bold" opacity="0.6" letter-spacing="3">SUR-RON</text>
+  <!-- Product name -->
+  <text x="450" y="460" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="18" font-weight="bold" opacity="0.85">Sur-Ron Ultra Bee Limi...</text>
+  <!-- Corner accent -->
+  <rect x="20" y="20" width="60" height="3" rx="1.5" fill="#ff6b35" opacity="0.5"/>
+  <rect x="20" y="28" width="30" height="3" rx="1.5" fill="#ff6b35" opacity="0.3"/>
 </svg>

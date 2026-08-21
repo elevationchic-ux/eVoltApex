@@ -1,31 +1,39 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1"/>
-      <stop offset="100%" style="stop-color:#0f3460;stop-opacity:1"/>
+    <linearGradient id="bg37" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#212529"/>
+      <stop offset="50%" style="stop-color:#343a40"/>
+      <stop offset="100%" style="stop-color:#495057"/>
     </linearGradient>
-    <radialGradient id="glow" cx="50%" cy="60%" r="38%">
+    <radialGradient id="glow37" cx="50%" cy="55%" r="45%">
       <stop offset="0%" style="stop-color:#00f5d4;stop-opacity:0.12"/>
       <stop offset="100%" style="stop-color:transparent;stop-opacity:0"/>
     </radialGradient>
+    <linearGradient id="floor37" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00f5d4;stop-opacity:0.08"/>
+      <stop offset="100%" style="stop-color:#212529;stop-opacity:0"/>
+    </linearGradient>
   </defs>
-  <rect width="900" height="500" fill="url(#bg)"/>
-  <ellipse cx="450" cy="380" rx="330" ry="55" fill="url(#glow)"/>
-  <!-- Wheels (smaller for scooter) -->
-  <circle cx="290" cy="325" r="50" fill="none" stroke="#444" stroke-width="7"/>
-  <circle cx="290" cy="325" r="40" fill="none" stroke="#383838" stroke-width="2.5"/>
-  <circle cx="290" cy="325" r="12" fill="#555"/>
-  <circle cx="630" cy="325" r="50" fill="none" stroke="#444" stroke-width="7"/>
-  <circle cx="630" cy="325" r="40" fill="none" stroke="#383838" stroke-width="2.5"/>
-  <circle cx="630" cy="325" r="12" fill="#555"/>
-  <!-- Body -->
-  <path d="M270,285 Q290,250 340,235 L510,225 Q570,228 600,245 L635,270 Q650,290 645,310 L635,325 L575,335 L390,338 L310,330 L270,310 Z" fill="#000000" stroke="#00f5d4" stroke-width="2"/>
-        <path d="M340,235 L355,195 L400,178 L450,175 L480,182 L495,200 L500,225" fill="#000000" stroke="#00f5d4" stroke-width="2" opacity="0.9"/>
-        <path d="M355,195 L345,175 L355,165 L380,160 L400,165 L400,178" fill="#00f5d4" opacity="0.3"/>
-  <rect x="350" y="270" width="180" height="35" rx="8" fill="#00f5d4" opacity="0.12"/>
-        <rect x="610" y="255" width="25" height="15" rx="4" fill="#FFE066" opacity="0.7"/>
-  <!-- Seat -->
-  <path d="M380,225 Q420,215 480,215 Q520,218 540,225 L530,232 Q500,225 460,223 Q420,223 390,230 Z" fill="#222" stroke="#333" stroke-width="1"/>
-  <!-- Label -->
-  <text x="450" y="460" text-anchor="middle" fill="#00f5d4" font-family="Arial,sans-serif" font-size="16" font-weight="bold" opacity="0.7">NIU MQI GT EVO</text>
+  <rect width="900" height="500" fill="url(#bg37)"/>
+  <ellipse cx="450" cy="380" rx="380" ry="70" fill="url(#glow37)"/>
+  <ellipse cx="450" cy="370" rx="320" ry="15" fill="url(#floor37)"/>
+  <circle cx="319" cy="319" r="49" fill="#00f5d4" opacity="0.05"/>
+  <circle cx="392" cy="66" r="20" fill="#00f5d4" opacity="0.07"/>
+  <circle cx="465" cy="113" r="51" fill="#00f5d4" opacity="0.09"/>
+  <circle cx="538" cy="160" r="22" fill="#00f5d4" opacity="0.11"/>
+  <circle cx="611" cy="207" r="53" fill="#00f5d4" opacity="0.13"/>
+  <circle cx="180" cy="295" r="62" fill="none" stroke="#00f5d4" stroke-width="5" opacity="0.8"/>
+       <circle cx="700" cy="295" r="62" fill="none" stroke="#00f5d4" stroke-width="5" opacity="0.8"/>
+       <path d="M180,295 L290,235 L420,210 L560,215 L660,240 L700,275" fill="none" stroke="#00f5d4" stroke-width="4" opacity="0.9"/>
+       <path d="M420,210 L430,155 L490,135 L550,140 L580,165 L580,210" fill="#00f5d4" opacity="0.15" stroke="#00f5d4" stroke-width="2"/>
+       <rect x="460" y="125" width="50" height="15" rx="3" fill="#00f5d4" opacity="0.3"/>
+       <path d="M380,225 Q430,210 500,210 L490,220 Q430,220 390,230 Z" fill="#222" opacity="0.8"/>
+       <path d="M280,250 L260,220 L275,210" fill="#00f5d4" opacity="0.3"/>
+  <!-- Brand label -->
+  <text x="450" y="430" text-anchor="middle" fill="#00f5d4" font-family="Arial,sans-serif" font-size="13" font-weight="bold" opacity="0.6" letter-spacing="3">NIU TECHNOLOGIES</text>
+  <!-- Product name -->
+  <text x="450" y="460" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="18" font-weight="bold" opacity="0.85">Niu MQi GT EVO 100 km/h</text>
+  <!-- Corner accent -->
+  <rect x="20" y="20" width="60" height="3" rx="1.5" fill="#00f5d4" opacity="0.5"/>
+  <rect x="20" y="28" width="30" height="3" rx="1.5" fill="#00f5d4" opacity="0.3"/>
 </svg>

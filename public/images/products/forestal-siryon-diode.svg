@@ -1,47 +1,44 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0f2027;stop-opacity:1"/>
-      <stop offset="50%" style="stop-color:#203a43;stop-opacity:1"/>
-      <stop offset="100%" style="stop-color:#2c5364;stop-opacity:1"/>
+    <linearGradient id="bg80" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#014f86"/>
+      <stop offset="50%" style="stop-color:#2a6f97"/>
+      <stop offset="100%" style="stop-color:#2c7da0"/>
     </linearGradient>
-    <radialGradient id="glow" cx="50%" cy="65%" r="35%">
-      <stop offset="0%" style="stop-color:#e94560;stop-opacity:0.12"/>
+    <radialGradient id="glow80" cx="50%" cy="55%" r="45%">
+      <stop offset="0%" style="stop-color:#a8dadc;stop-opacity:0.12"/>
       <stop offset="100%" style="stop-color:transparent;stop-opacity:0"/>
     </radialGradient>
+    <linearGradient id="floor80" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#a8dadc;stop-opacity:0.08"/>
+      <stop offset="100%" style="stop-color:#014f86;stop-opacity:0"/>
+    </linearGradient>
   </defs>
-  <rect width="900" height="500" fill="url(#bg)"/>
-  <ellipse cx="450" cy="380" rx="320" ry="50" fill="url(#glow)"/>
-  <!-- Wheels -->
-  <circle cx="250" cy="320" r="55" fill="none" stroke="#555" stroke-width="6"/>
-  <circle cx="250" cy="320" r="47" fill="none" stroke="#444" stroke-width="2"/>
-  <circle cx="250" cy="320" r="10" fill="#666"/>
-  <circle cx="650" cy="320" r="55" fill="none" stroke="#555" stroke-width="6"/>
-  <circle cx="650" cy="320" r="47" fill="none" stroke="#444" stroke-width="2"/>
-  <circle cx="650" cy="320" r="10" fill="#666"/>
-  <!-- Spokes -->
-  <line x1="297" y1="320" x2="203" y2="320" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="288.0237987356225" y1="347.62590685774626" x2="211.97620126437747" y2="292.37409314225374" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="264.5237987356225" y1="364.6996562658722" x2="235.47620126437747" y2="275.3003437341278" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="235.47620126437747" y1="364.69965626587225" x2="264.5237987356225" y2="275.30034373412775" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="211.97620126437747" y1="347.62590685774626" x2="288.0237987356225" y2="292.37409314225374" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="697" y1="320" x2="603" y2="320" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="688.0237987356226" y1="347.62590685774626" x2="611.9762012643774" y2="292.37409314225374" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="664.5237987356226" y1="364.6996562658722" x2="635.4762012643774" y2="275.3003437341278" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="635.4762012643774" y1="364.69965626587225" x2="664.5237987356226" y2="275.30034373412775" stroke="#4a4a4a" stroke-width="1"/>
-  <line x1="611.9762012643774" y1="347.62590685774626" x2="688.0237987356226" y2="292.37409314225374" stroke="#4a4a4a" stroke-width="1"/>
-  <!-- Frame -->
-  <path d="M240,300 L370,215 L540,215 L660,300" fill="none" stroke="#1a1a2e" stroke-width="7" stroke-linecap="round"/>
-        <path d="M370,215 L415,300 L540,215" fill="none" stroke="#1a1a2e" stroke-width="6" stroke-linecap="round"/>
-        <path d="M370,215 L340,175 L320,170" fill="none" stroke="#1a1a2e" stroke-width="5" stroke-linecap="round"/>
-        <path d="M540,215 L570,195 L595,195 L605,205" fill="none" stroke="#1a1a2e" stroke-width="5" stroke-linecap="round"/>
-        <line x1="415" y1="300" x2="415" y2="255" stroke="#1a1a2e" stroke-width="5"/>
-        <path d="M395,255 L435,255" fill="none" stroke="#333" stroke-width="4"/>
-        <path d="M350,240 L370,215" fill="none" stroke="#e94560" stroke-width="8" stroke-linecap="round" opacity="0.5"/>
-  <rect x="395" y="225" width="70" height="14" rx="7" fill="#e94560" opacity="0.5"/>
-        <circle cx="415" cy="300" r="12" fill="#444" stroke="#555" stroke-width="2"/>
-  <!-- Seat -->
-  <ellipse cx="415" cy="252" rx="18" ry="6" fill="#333"/>
-  <!-- Label -->
-  <text x="450" y="460" text-anchor="middle" fill="#e94560" font-family="Arial,sans-serif" font-size="16" font-weight="bold" opacity="0.7">FORESTAL SIRYON</text>
+  <rect width="900" height="500" fill="url(#bg80)"/>
+  <ellipse cx="450" cy="380" rx="380" ry="70" fill="url(#glow80)"/>
+  <ellipse cx="450" cy="370" rx="320" ry="15" fill="url(#floor80)"/>
+  <circle cx="610" cy="210" r="60" fill="#a8dadc" opacity="0.05"/>
+  <circle cx="683" cy="257" r="31" fill="#a8dadc" opacity="0.07"/>
+  <circle cx="756" cy="304" r="62" fill="#a8dadc" opacity="0.09"/>
+  <circle cx="829" cy="51" r="33" fill="#a8dadc" opacity="0.11"/>
+  <circle cx="102" cy="98" r="64" fill="#a8dadc" opacity="0.13"/>
+  <circle cx="200" cy="280" r="55" fill="none" stroke="#a8dadc" stroke-width="3" opacity="0.8"/>
+       <circle cx="200" cy="280" r="48" fill="none" stroke="#a8dadc" stroke-width="1" opacity="0.3"/>
+       <circle cx="650" cy="280" r="55" fill="none" stroke="#a8dadc" stroke-width="3" opacity="0.8"/>
+       <circle cx="650" cy="280" r="48" fill="none" stroke="#a8dadc" stroke-width="1" opacity="0.3"/>
+       <line x1="200" y1="280" x2="380" y2="200" stroke="#a8dadc" stroke-width="4" opacity="0.9"/>
+       <line x1="380" y1="200" x2="550" y2="200" stroke="#a8dadc" stroke-width="4" opacity="0.9"/>
+       <line x1="550" y1="200" x2="650" y2="280" stroke="#a8dadc" stroke-width="4" opacity="0.9"/>
+       <line x1="380" y1="200" x2="420" y2="280" stroke="#a8dadc" stroke-width="3" opacity="0.7"/>
+       <line x1="420" y1="280" x2="550" y2="200" stroke="#a8dadc" stroke-width="3" opacity="0.7"/>
+       <path d="M360,195 L340,170 L320,165" fill="none" stroke="#a8dadc" stroke-width="3" opacity="0.8"/>
+       <path d="M550,200 L575,185 L595,185" fill="none" stroke="#a8dadc" stroke-width="3" opacity="0.8"/>
+       <rect x="395" y="210" width="80" height="10" rx="5" fill="#a8dadc" opacity="0.4"/>
+  <!-- Brand label -->
+  <text x="450" y="430" text-anchor="middle" fill="#a8dadc" font-family="Arial,sans-serif" font-size="13" font-weight="bold" opacity="0.6" letter-spacing="3">FORESTAL ANDORRA</text>
+  <!-- Product name -->
+  <text x="450" y="460" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="18" font-weight="bold" opacity="0.85">Forestal Siryon Diode ...</text>
+  <!-- Corner accent -->
+  <rect x="20" y="20" width="60" height="3" rx="1.5" fill="#a8dadc" opacity="0.5"/>
+  <rect x="20" y="28" width="30" height="3" rx="1.5" fill="#a8dadc" opacity="0.3"/>
 </svg>
